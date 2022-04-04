@@ -1,10 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom'
 
-const RequireAuth = ({ isAuth, component }) => {
+const RequireAuth = ({ component }) => {
     let location = useLocation();
+    const state = useSelector(state => state)
+    console.log(state);
 
-    if (!isAuth) {
+    if (!state.isAuth) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 

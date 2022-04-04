@@ -17,7 +17,7 @@ const App = () => {
           <Routes>
             <Route path='/home/*' element={<Home />}>
               <Route path='time-zone' element={<TimeZone />} />
-              <Route path='protected' element={<RequireAuth isAuth={true} component={<TimeZone />} />} />
+              <Route path='protected' element={<RequireAuth component={<TimeZone />} />} />
             </Route>
             <Route path='/sidebar' element={<Sidebar />} />
             <Route path='/login' element={<Login />} />

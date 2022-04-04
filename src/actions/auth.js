@@ -1,4 +1,5 @@
 import { TYPES } from '../constants/types';
+import { setError } from './ui';
 
 export const loginUsernameAndPassword = (username, password) => {
     const validUser = "username";
@@ -8,6 +9,7 @@ export const loginUsernameAndPassword = (username, password) => {
         if (username === validUser && password === validPwd) {
             dispatch(login(true))
         } else {
+            dispatch(setError("Usuario y clave incorrecta."))
             dispatch(login(false))
         }
     }
