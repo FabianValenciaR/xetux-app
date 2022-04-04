@@ -5,9 +5,9 @@ import Home from './pages/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import TimeZone from './components/TimeZone'
 import RequireAuth from './components/RequireAuth'
-
+import useAuth from './hooks/useAuth'
 const App = () => {
-  const [isAuth, setIsAuth] = useState(false)
+  const {state: isAuth} = useAuth();
 
   return (
     <div>

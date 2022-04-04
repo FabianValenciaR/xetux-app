@@ -7,18 +7,28 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginBackground from '../assets/images/login-background.png'
+import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const theme = createTheme();
 
 const Login = () => {
+  const {state: isAuth, login} = useAuth(false);
+  let navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('username'),
-      password: data.get('password'),
-    });
+    login(data.get('username'), data.get('password'));
   };
+  
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/home/time-zone", { replace: true });
+    }
+  }, [isAuth])
+  
 
   return (
     <ThemeProvider theme={theme}>
