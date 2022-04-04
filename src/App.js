@@ -5,22 +5,25 @@ import Home from './pages/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import TimeZone from './components/TimeZone'
 import RequireAuth from './components/RequireAuth'
-import useAuth from './hooks/useAuth'
+import { Provider } from 'react-redux'
+import {store} from './store/store'
+
 const App = () => {
-  const {state: isAuth} = useAuth();
 
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/home/*' element={<Home />}>
-            <Route path='time-zone' element={<TimeZone />} />
-            <Route path='protected' element={<RequireAuth isAuth={isAuth} component={<TimeZone />} />} />
-          </Route>
-          <Route path='/sidebar' element={<Sidebar />} />
-          <Route path='/login' element={<Login />} />
-        </Routes>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/home/*' element={<Home />}>
+              <Route path='time-zone' element={<TimeZone />} />
+              <Route path='protected' element={<RequireAuth isAuth={true} component={<TimeZone />} />} />
+            </Route>
+            <Route path='/sidebar' element={<Sidebar />} />
+            <Route path='/login' element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </div>
   )
 }
