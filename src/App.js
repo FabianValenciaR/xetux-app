@@ -1,12 +1,10 @@
 import React from 'react'
-import Login from './pages/Login'
+import Sidebar from './components/Sidebar'
 
 const App = () => {
   return (
     <div>
-      <Login>
-        
-      </Login>
+      <Sidebar></Sidebar>
     </div>
   )
 }
