@@ -24,7 +24,7 @@ const Login = () => {
     const password = data.get('password');
 
     dispatch(loginUsernameAndPassword(username, password));
-    navigate("/home/protected");
+    navigate("/home/time-zone");
   };
   
 
