@@ -16,6 +16,7 @@ export const loginUsernameAndPassword = (username, password) => {
 }
 
 export const login = (isAuth) => {
+    localStorage.setItem('isAuth', isAuth);
     return {
         type: TYPES.login,
         payload: { isAuth }

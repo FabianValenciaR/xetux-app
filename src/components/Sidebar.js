@@ -8,28 +8,28 @@ import { ListItemButton } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 const generalSubmenu = [
-    { label: 'Zona Horaria', url: "/login" },
-    { label: 'Parámetros del Recibo', url: "/login" },
-    { label: 'Parámetros de la Factura', url: "/login" },
-    { label: 'Destinatarios de correo de Ventas', url: "/login" },
-    { label: 'Envío de Ventas a XONE', url: "/login" },
-    { label: 'Tableros Inteligencia de Negocios', url: "/login" },
+    { label: 'Zona Horaria', url: "/home/time-zone" },
+    { label: 'Parámetros del Recibo', url: "/home/receipt-parameters" },
+    { label: 'Parámetros de la Factura', url: "/home/invoice-parameters" },
+    { label: 'Destinatarios de correo de Ventas', url: "/home/email-sales" },
+    { label: 'Envío de Ventas a XONE', url: "/home/sales-xone" },
+    { label: 'Tableros Inteligencia de Negocios', url: "/home/dashboards-bi" },
 ];
 
 const invoicesSubmenu = [
-    { label: 'Configuración Inicial', url: "/login" },
-    { label: 'Configuración de Moneda', url: "/login" },
-    { label: 'Configuración de Formas de Pago', url: "/login" },
-    { label: 'Configuración Tipos de Documentos', url: "/login" },
-    { label: 'Eliminación de Transacciones de Prueba (Salida en Vivo)', url: "/login" },
-    { label: 'Cambio de secuencial de número de factura (Salida en Vivo)', url: "/login" },
+    { label: 'Configuración Inicial', url: "/home/invoice-init" },
+    { label: 'Configuración de Moneda', url: "/home/currency-config" },
+    { label: 'Configuración de Formas de Pago', url: "/home/payment-method" },
+    { label: 'Configuración Tipos de Documentos', url: "/home/document-type" },
+    { label: 'Eliminación de Transacciones de Prueba (Salida en Vivo)', url: "/home/delete-transactions" },
+    { label: 'Cambio de secuencial de número de factura (Salida en Vivo)', url: "/home/secuential-change" },
 ];
 
 const forwardInvoicesSubmenu = [
-    { label: 'Listado de Facturas NO AUTORIZADAS', url: "/login" },
-    { label: 'Corrección de Cliente', url: "/login" },
-    { label: 'Corrección de Redondeo', url: "/login" },
-    { label: 'Reenvío de Factura', url: "/login" },
+    { label: 'Listado de Facturas NO AUTORIZADAS', url: "/home/not-authorized-invoices" },
+    { label: 'Corrección de Cliente', url: "/home/client-corrections" },
+    { label: 'Corrección de Redondeo', url: "/home/round-corrections" },
+    { label: 'Reenvío de Factura', url: "/home/fordward-invoice" },
 ];
 
 const Sidebar = () => {
