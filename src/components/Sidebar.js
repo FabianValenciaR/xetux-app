@@ -1,298 +1,188 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { AirlineStops, KeyboardArrowDown, MiscellaneousServices, Receipt } from '@mui/icons-material';
 import { ListItemButton } from '@mui/material';
-
-const drawerWidth = 260;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: `-${drawerWidth}px`,
-        ...(open && {
-            transition: theme.transitions.create('margin', {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            marginLeft: 0,
-        }),
-    }),
-);
+import { NavLink } from 'react-router-dom';
 
 const generalSubmenu = [
-    { label: 'Zona Horaria' },
-    { label: 'Parámetros del Recibo' },
-    { label: 'Parámetros de la Factura' },
-    { label: 'Destinatarios de correo de Ventas' },
-    { label: 'Envío de Ventas a XONE' },
-    { label: 'Tableros Inteligencia de Negocios' },
+    { label: 'Zona Horaria', url: "/home/time-zone" },
+    { label: 'Parámetros del Recibo', url: "/home/receipt-parameters" },
+    { label: 'Parámetros de la Factura', url: "/home/invoice-parameters" },
+    { label: 'Destinatarios de correo de Ventas', url: "/home/email-sales" },
+    { label: 'Envío de Ventas a XONE', url: "/home/sales-xone" },
+    { label: 'Tableros Inteligencia de Negocios', url: "/home/dashboards-bi" },
 ];
 
 const invoicesSubmenu = [
-    { label: 'Configuración Inicial' },
-    { label: 'Configuración de Moneda' },
-    { label: 'Configuración de Formas de Pago' },
-    { label: 'Configuración Tipos de Documentos' },
-    { label: 'Eliminación de Transacciones de Prueba (Salida en Vivo)' },
-    { label: 'Cambio de secuencial de número de factura (Salida en Vivo)' },
+    { label: 'Configuración Inicial', url: "/home/invoice-init" },
+    { label: 'Configuración de Moneda', url: "/home/currency-config" },
+    { label: 'Configuración de Formas de Pago', url: "/home/payment-method" },
+    { label: 'Configuración Tipos de Documentos', url: "/home/document-type" },
+    { label: 'Eliminación de Transacciones de Prueba (Salida en Vivo)', url: "/home/delete-transactions" },
+    { label: 'Cambio de secuencial de número de factura (Salida en Vivo)', url: "/home/secuential-change" },
 ];
 
 const forwardInvoicesSubmenu = [
-    { label: 'Listado de Facturas NO AUTORIZADAS' },
-    { label: 'Corrección de Cliente' },
-    { label: 'Corrección de Redondeo' },
-    { label: 'Reenvío de Factura' },
+    { label: 'Listado de Facturas NO AUTORIZADAS', url: "/home/not-authorized-invoices" },
+    { label: 'Corrección de Cliente', url: "/home/client-corrections" },
+    { label: 'Corrección de Redondeo', url: "/home/round-corrections" },
+    { label: 'Reenvío de Factura', url: "/home/fordward-invoice" },
 ];
 
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-}));
-
 const Sidebar = () => {
-    const [openDrawer, setOpenDrawer] = React.useState(false);
     const [openGeneralMenu, setOpenGeneralMenu] = React.useState(false);
     const [openInvoicesMenu, setOpenInvoicesMenu] = React.useState(false);
     const [openForwardInvoicesMenu, setOpenForwardInvoicesMenu] = React.useState(false);
 
-
-
-    const handleDrawerOpen = () => {
-        setOpenDrawer(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpenDrawer(false);
-    };
-
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" open={openDrawer}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{ mr: 2, ...(openDrawer && { display: 'none' }) }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Dashboard
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
+        <List>
+            <Box
                 sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                        width: drawerWidth,
-                        boxSizing: 'border-box',
-                    },
+                    color: 'rgba(0, 0, 0, 1)',
+                    pb: openGeneralMenu ? 2 : 0,
                 }}
-                variant="persistent"
-                anchor="left"
-                open={openDrawer}
             >
-                <DrawerHeader sx={{
-                    bgcolor: '#1976d2',
-                    color: '#fff'
-                }}>
-                    Logo Goes here
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon htmlColor='#fff' />
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
-                    <Box
-                        sx={{
-                            color: 'rgba(0, 0, 0, 1)',
-                            pb: openGeneralMenu ? 2 : 0,
+                <ListItemButton
+                    alignItems="flex-start"
+                    onClick={() => setOpenGeneralMenu(!openGeneralMenu)}
+                    sx={{
+                        pt: 2.5,
+                    }}
+                >
+                    <ListItemIcon sx={{
+                        mt: 0
+                    }}>
+                        <MiscellaneousServices
+                        />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Configuración General"
+                        primaryTypographyProps={{
+                            fontSize: 15,
+                            fontWeight: 'medium',
+                            lineHeight: '20px',
+                            mb: '2px',
                         }}
-                    >
-                        <ListItemButton
-                            alignItems="flex-start"
-                            onClick={() => setOpenGeneralMenu(!openGeneralMenu)}
-                            sx={{
-                                pt: 2.5,
-                            }}
-                        >
-                            <ListItemIcon sx={{
-                                mt: 0
-                            }}>
-                                <MiscellaneousServices
+                        sx={{ my: 0 }}
+                    />
+                    <KeyboardArrowDown
+                        sx={{
+                            mr: -1,
+                            opacity: openGeneralMenu ? 1 : 0,
+                            transform: openGeneralMenu ? 'rotate(-180deg)' : 'rotate(0)',
+                            transition: '0.2s',
+                        }}
+                    />
+                </ListItemButton>
+                {openGeneralMenu &&
+                    generalSubmenu.map((item) => (
+                        <NavLink to={item.url}>
+                            <ListItemButton
+                                key={item.label}
+                                sx={{ py: 0, minHeight: 32 }}
+                            >
+                                <ListItemText
+                                    primary={item.label}
+                                    primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
                                 />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Configuración General"
-                                primaryTypographyProps={{
-                                    fontSize: 15,
-                                    fontWeight: 'medium',
-                                    lineHeight: '20px',
-                                    mb: '2px',
-                                }}
-                                sx={{ my: 0 }}
-                            />
-                            <KeyboardArrowDown
-                                sx={{
-                                    mr: -1,
-                                    opacity: openGeneralMenu ? 1 : 0,
-                                    transform: openGeneralMenu ? 'rotate(-180deg)' : 'rotate(0)',
-                                    transition: '0.2s',
-                                }}
-                            />
-                        </ListItemButton>
-                        {openGeneralMenu &&
-                            generalSubmenu.map((item) => (
-                                <ListItemButton
-                                    key={item.label}
-                                    sx={{ py: 0, minHeight: 32 }}
-                                >
-                                    <ListItemText
-                                        primary={item.label}
-                                        primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-                                    />
-                                </ListItemButton>
-                            ))}
-                        <ListItemButton
-                            alignItems="flex-start"
-                            onClick={() => setOpenInvoicesMenu(!openInvoicesMenu)}
-                            sx={{
-                                pt: 2.5,
-                            }}
-                        >
-                            <ListItemIcon sx={{
-                                mt: 0
-                            }}>
-                                <Receipt />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Facturas Electrónicas"
-                                primaryTypographyProps={{
-                                    fontSize: 15,
-                                    fontWeight: 'medium',
-                                    lineHeight: '20px',
-                                    mb: '2px',
-                                }}
-                                sx={{ my: 0 }}
-                            />
-                            <KeyboardArrowDown
-                                sx={{
-                                    mr: -1,
-                                    opacity: openInvoicesMenu ? 1 : 0,
-                                    transform: openInvoicesMenu ? 'rotate(-180deg)' : 'rotate(0)',
-                                    transition: '0.2s',
-                                }}
-                            />
-                        </ListItemButton>
-                        {openInvoicesMenu &&
-                            invoicesSubmenu.map((item) => (
-                                <ListItemButton
-                                    key={item.label}
-                                    sx={{ py: 0, minHeight: 32 }}
-                                >
-                                    <ListItemText
-                                        primary={item.label}
-                                        primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-                                    />
-                                </ListItemButton>
-                            ))}
-                        <ListItemButton
-                            alignItems="flex-start"
-                            onClick={() => setOpenForwardInvoicesMenu(!openForwardInvoicesMenu)}
-                            sx={{
-                                pt: 2.5,
-                            }}
-                        >
-                            <ListItemIcon sx={{
-                                mt: 0
-                            }}>
-                                <AirlineStops />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Reenvío de Facturas"
-                                primaryTypographyProps={{
-                                    fontSize: 15,
-                                    fontWeight: 'medium',
-                                    lineHeight: '20px',
-                                    mb: '2px',
-                                }}
-                                sx={{ my: 0 }}
-                            />
-                            <KeyboardArrowDown
-                                sx={{
-                                    mr: -1,
-                                    opacity: openForwardInvoicesMenu ? 1 : 0,
-                                    transform: openForwardInvoicesMenu ? 'rotate(-180deg)' : 'rotate(0)',
-                                    transition: '0.2s',
-                                }}
-                            />
-                        </ListItemButton>
-                        {openForwardInvoicesMenu &&
-                            forwardInvoicesSubmenu.map((item) => (
-                                <ListItemButton
-                                    key={item.label}
-                                    sx={{ py: 0, minHeight: 32 }}
-                                >
-                                    <ListItemText
-                                        primary={item.label}
-                                        primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-                                    />
-                                </ListItemButton>
-                            ))}
-                    </Box>
-                </List>
-            </Drawer>
-            <Main open={openDrawer}>
-                <DrawerHeader />
-                <Typography paragraph>
-                    Content goes here
-                </Typography>
-            </Main>
-        </Box>
+                            </ListItemButton>
+                        </NavLink>
+                    ))}
+                <ListItemButton
+                    alignItems="flex-start"
+                    onClick={() => setOpenInvoicesMenu(!openInvoicesMenu)}
+                    sx={{
+                        pt: 2.5,
+                    }}
+                >
+                    <ListItemIcon sx={{
+                        mt: 0
+                    }}>
+                        <Receipt />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Facturas Electrónicas"
+                        primaryTypographyProps={{
+                            fontSize: 15,
+                            fontWeight: 'medium',
+                            lineHeight: '20px',
+                            mb: '2px',
+                        }}
+                        sx={{ my: 0 }}
+                    />
+                    <KeyboardArrowDown
+                        sx={{
+                            mr: -1,
+                            opacity: openInvoicesMenu ? 1 : 0,
+                            transform: openInvoicesMenu ? 'rotate(-180deg)' : 'rotate(0)',
+                            transition: '0.2s',
+                        }}
+                    />
+                </ListItemButton>
+                {openInvoicesMenu &&
+                    invoicesSubmenu.map((item) => (
+                        <NavLink to={item.url}>
+                            <ListItemButton
+                                key={item.label}
+                                sx={{ py: 0, minHeight: 32 }}
+                            >
+                                <ListItemText
+                                    primary={item.label}
+                                    primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+                                />
+                            </ListItemButton>
+                        </NavLink>
+                    ))}
+                <ListItemButton
+                    alignItems="flex-start"
+                    onClick={() => setOpenForwardInvoicesMenu(!openForwardInvoicesMenu)}
+                    sx={{
+                        pt: 2.5,
+                    }}
+                >
+                    <ListItemIcon sx={{
+                        mt: 0
+                    }}>
+                        <AirlineStops />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Reenvío de Facturas"
+                        primaryTypographyProps={{
+                            fontSize: 15,
+                            fontWeight: 'medium',
+                            lineHeight: '20px',
+                            mb: '2px',
+                        }}
+                        sx={{ my: 0 }}
+                    />
+                    <KeyboardArrowDown
+                        sx={{
+                            mr: -1,
+                            opacity: openForwardInvoicesMenu ? 1 : 0,
+                            transform: openForwardInvoicesMenu ? 'rotate(-180deg)' : 'rotate(0)',
+                            transition: '0.2s',
+                        }}
+                    />
+                </ListItemButton>
+                {openForwardInvoicesMenu &&
+                    forwardInvoicesSubmenu.map((item) => (
+                        <NavLink to={item.url}>
+                            <ListItemButton
+                                key={item.label}
+                                sx={{ py: 0, minHeight: 32 }}
+                            >
+                                <ListItemText
+                                    primary={item.label}
+                                    primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+                                />
+                            </ListItemButton>
+                        </NavLink>
+                    ))}
+            </Box>
+        </List>
     );
 }
 

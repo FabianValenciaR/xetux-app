@@ -7,18 +7,26 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginBackground from '../assets/images/login-background.png'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUsernameAndPassword } from '../actions/auth';
 
 const theme = createTheme();
 
 const Login = () => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('username'),
-      password: data.get('password'),
-    });
+    const username = data.get('username');
+    const password = data.get('password');
+
+    dispatch(loginUsernameAndPassword(username, password));
+    navigate("/home/protected");
   };
+  
 
   return (
     <ThemeProvider theme={theme}>
