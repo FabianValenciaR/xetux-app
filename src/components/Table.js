@@ -8,9 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Container, TextField, Typography } from '@mui/material';
 import { useForm } from '../hooks/useForm'
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const BasicTable = ({ fields, tableName }) => {
-
+    const [tableFields, setTableFields] = useState(fields)
     const [formValues, handleInputChange] = useForm({
         time_zone: "America/Quito"
     });
@@ -18,6 +20,11 @@ const BasicTable = ({ fields, tableName }) => {
     const handleUpdate = (e) => {
         console.log(formValues);
     }
+
+    useEffect(() => {
+        setTableFields(fields)
+    }, [fields])
+    
 
     return (
         <Container>
@@ -34,7 +41,7 @@ const BasicTable = ({ fields, tableName }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {fields.map((row) => (
+                        {tableFields.map((row) => (
                             <TableRow
                                 key={row.key}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
