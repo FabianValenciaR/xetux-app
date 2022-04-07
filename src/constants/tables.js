@@ -1,0 +1,3 @@
+export const TABLES = {
+    REGION_TIMEZONE: "T_SYS_REGION_TIMEZONE"
+}
