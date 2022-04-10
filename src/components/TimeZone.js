@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import BasicTable from './Table'
+import TableInputEdit from './TableInputEdit'
 import { TABLES } from '../constants/tables'
 import { useDispatch, useSelector } from 'react-redux';
-import { getTimeZone } from '../actions/http';
+import { getTimeZone, updateTimeZone } from '../actions/http';
 
 const TimeZone = () => {
-  let initial_fields = [
-    { key: "time_zone", current: "" }
-  ];
   const dispatch = useDispatch();
   const time_zone_current = useSelector((state) => state.db.time_zone);
+  let initial_fields = [
+    { key: "time_zone", current: "", updated: "America/Guayaquil", isDisabled: true },
+    { key: "new_field", current: "" },
+  ];
   const [tableFields, setTableFields] = useState(initial_fields);
+
+  const handleUpdate = (values) => {
+    let updated_fields = [];
+    Object.keys(values).forEach((item, i) => {
+      let key = item
+      let value = Object.values(values)[i];
+      updated_fields.push({ key, value })
+    });
+    updateItems(updated_fields)
+  }
+
+  const updateItems = (updatedFields) => {
+    dispatch(updateTimeZone(updatedFields));
+  }
 
   useEffect(() => {
     dispatch(getTimeZone())
@@ -27,9 +42,8 @@ const TimeZone = () => {
     setTableFields(initial_fields);
   }, [time_zone_current]);
 
-
   return (
-    <BasicTable fields={tableFields} tableName={TABLES.REGION_TIMEZONE} />
+    <TableInputEdit fields={tableFields} tableName={TABLES.REGION_TIMEZONE} onUpdate={handleUpdate} />
   )
 }
 

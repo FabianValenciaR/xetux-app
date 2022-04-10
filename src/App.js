@@ -31,8 +31,8 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path='/home/*' element={<Home />}>
-              <Route path='time-zone' element={<RequireAuth component={<TimeZone />} />} />
-              <Route path='receipt-parameters' element={<RequireAuth component={<ReceiptParameters />} />} />
+              <Route path='time-zone' element={<TimeZone />} />
+              <Route path='receipt-parameters' element={<ReceiptParameters />} />
               <Route path='invoice-parameters' element={<RequireAuth component={<InvoiceParameters />} />} />
               <Route path='email-sales' element={<RequireAuth component={<EmailSales />} />} />
               <Route path='sales-xone' element={<RequireAuth component={<SalesToXONE />} />} />

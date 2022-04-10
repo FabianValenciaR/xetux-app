@@ -10,21 +10,20 @@ import { Button, Container, TextField, Typography } from '@mui/material';
 import { useForm } from '../hooks/useForm'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { get } from "lodash";
 
-const BasicTable = ({ fields, tableName }) => {
+const TableInputEdit = ({ fields, tableName, onUpdate }) => {
     const [tableFields, setTableFields] = useState(fields)
-    const [formValues, handleInputChange] = useForm({
-        time_zone: "America/Quito"
-    });
+    const [formValues, handleInputChange] = useForm();
 
     const handleUpdate = (e) => {
-        console.log(formValues);
+        onUpdate(formValues);
     }
 
     useEffect(() => {
         setTableFields(fields)
     }, [fields])
-    
+
 
     return (
         <Container>
@@ -51,7 +50,7 @@ const BasicTable = ({ fields, tableName }) => {
                                 </TableCell>
                                 <TableCell align="center">{row.current}</TableCell>
                                 <TableCell align="center">
-                                    <TextField key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange}></TextField>
+                                    <TextField disabled={get(row, "isDisabled", false)} key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange}></TextField>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -64,4 +63,4 @@ const BasicTable = ({ fields, tableName }) => {
     );
 }
 
-export default BasicTable
+export default TableInputEdit
