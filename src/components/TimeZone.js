@@ -8,8 +8,7 @@ const TimeZone = () => {
   const dispatch = useDispatch();
   const time_zone_current = useSelector((state) => state.db.time_zone);
   let initial_fields = [
-    { key: "time_zone", current: "", updated: "America/Guayaquil", isDisabled: true },
-    { key: "new_field", current: "" },
+    { key: "time_zone", current: "", updated: "America/Guayaquil", isDisabled: true }
   ];
   const [tableFields, setTableFields] = useState(initial_fields);
 
@@ -40,6 +39,7 @@ const TimeZone = () => {
       return field;
     });
     setTableFields(initial_fields);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time_zone_current]);
 
   return (

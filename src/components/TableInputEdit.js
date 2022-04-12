@@ -20,8 +20,23 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
         onUpdate(formValues);
     }
 
+    const initializeInputs = () => {
+        tableFields.forEach(tableField => {
+            if (get(tableField, "isDisabled", false)) {
+                handleInputChange({
+                    target: {
+                        name: get(tableField, "key", ""),
+                        value: get(tableField, "updated", "")
+                    }
+                })
+            }
+        });
+    }
+
     useEffect(() => {
-        setTableFields(fields)
+        setTableFields(fields);
+        initializeInputs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fields])
 
 
@@ -50,7 +65,13 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
                                 </TableCell>
                                 <TableCell align="center">{row.current}</TableCell>
                                 <TableCell align="center">
-                                    <TextField disabled={get(row, "isDisabled", false)} key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange}></TextField>
+                                    {/* {get(row, "isDisabled", false) ?
+                                        <Typography key={row.key} variant="h7" align='center' component="div" gutterBottom>
+                                            {row.updated}
+                                        </Typography> :
+                                        <TextField key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange} />
+                                    } */}
+                                    <TextField disabled={get(row, "isDisabled", false)} key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange} />
                                 </TableCell>
                             </TableRow>
                         ))}
