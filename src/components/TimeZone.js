@@ -43,7 +43,7 @@ const TimeZone = () => {
   }, [time_zone_current]);
 
   return (
-    <TableInputEdit fields={tableFields} tableName={TABLES.REGION_TIMEZONE} onUpdate={handleUpdate} />
+    <TableInputEdit fields={tableFields} tableName={TABLES.T_SYS_REGION_TIMEZONE} onUpdate={handleUpdate} />
   )
 }
 

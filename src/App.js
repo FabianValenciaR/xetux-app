@@ -50,6 +50,7 @@ const App = () => {
             </Route>
             <Route path='/sidebar' element={<Sidebar />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/*' element={<Login />} />
           </Routes>
         </BrowserRouter>
       </Provider>

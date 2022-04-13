@@ -10,23 +10,40 @@ import { Button, Container, TextField, Typography } from '@mui/material';
 import { useForm } from '../hooks/useForm'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 
 const TableInputEdit = ({ fields, tableName, onUpdate }) => {
     const [tableFields, setTableFields] = useState(fields)
     const [formValues, handleInputChange] = useForm();
 
-    const handleUpdate = (e) => {
-        onUpdate(formValues);
+    const handleUpdate = () => {
+        let valuesToBeUpdated = formValues
+        tableFields.forEach(tableField => {
+            if (isEmpty(valuesToBeUpdated[tableField.key])) {
+                console.log("ENTERED");
+                let newValue = {
+                    key: get(tableField, "key", ""),
+                    value: get(tableField, "updated", "")
+                }
+
+                valuesToBeUpdated = {
+                    ...valuesToBeUpdated,
+                    [`${newValue.key}`]: `${newValue.value}`
+                }
+
+            }
+        });
+        console.log(valuesToBeUpdated);
+        // onUpdate(valuesToBeUpdated);
     }
 
     const initializeInputs = () => {
         tableFields.forEach(tableField => {
-            if (get(tableField, "isDisabled", false)) {
+            if (!isEmpty(tableField.updated)) {
                 handleInputChange({
                     target: {
                         name: get(tableField, "key", ""),
-                        value: get(tableField, "updated", "")
+                        value: tableField.updated
                     }
                 })
             }
@@ -36,7 +53,7 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
     useEffect(() => {
         setTableFields(fields);
         initializeInputs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fields])
 
 
@@ -65,13 +82,13 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
                                 </TableCell>
                                 <TableCell align="center">{row.current}</TableCell>
                                 <TableCell align="center">
-                                    {/* {get(row, "isDisabled", false) ?
+                                    {get(row, "isDisabled", false) ?
                                         <Typography key={row.key} variant="h7" align='center' component="div" gutterBottom>
                                             {row.updated}
                                         </Typography> :
                                         <TextField key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange} />
-                                    } */}
-                                    <TextField disabled={get(row, "isDisabled", false)} key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange} />
+                                    }
+                                    {/* <TextField disabled={get(row, "isDisabled", false)} key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange} /> */}
                                 </TableCell>
                             </TableRow>
                         ))}

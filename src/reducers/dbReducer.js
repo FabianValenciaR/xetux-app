@@ -12,6 +12,15 @@ export const dbReducer = (state = initialState, action) => {
                 time_zone: action.payload
             }
 
+        case TYPES.dbSetReceiptParameter:
+            return {
+                ...state,
+                8: action.payload["8"],
+                12: action.payload["12"],
+                20: action.payload["20"],
+                21: action.payload["21"]
+            }
+
         default:
             return state
     }

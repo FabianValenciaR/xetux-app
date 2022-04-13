@@ -5,5 +5,6 @@ export const TYPES = {
     uiSetError: '[UI] Set Error',
     uiRemoveError: '[UI] Remove Error',
 
-    dbSetTimeZone: '[TIMEZONE] set fields'
+    dbSetTimeZone: '[TIMEZONE] set fields',
+    dbSetReceiptParameter: '[RECEIPT_PARAMETERS] set fields',
 }
