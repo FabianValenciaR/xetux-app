@@ -33,8 +33,7 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
 
             }
         });
-        console.log(valuesToBeUpdated);
-        // onUpdate(valuesToBeUpdated);
+        onUpdate(valuesToBeUpdated);
     }
 
     const initializeInputs = () => {

@@ -50,3 +50,19 @@ export const getReceiptParameter = () => {
     }
   };
 };
+
+export const updateReceiptParameter = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/receipt-parameter`;
+    try {
+      // dispatch(setLoading(true));
+      await axios.post(path, payload);
+      // dispatch(setLoading(false));
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};

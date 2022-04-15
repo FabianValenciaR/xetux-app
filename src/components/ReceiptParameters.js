@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TableInputEdit from './TableInputEdit'
 import { TABLES } from '../constants/tables'
 import { useDispatch, useSelector } from 'react-redux';
-import { getReceiptParameter, updateTimeZone } from '../actions/http';
+import { getReceiptParameter, updateReceiptParameter } from '../actions/http';
 
 const ReceiptParameters = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const ReceiptParameters = () => {
   }
 
   const updateItems = (updatedFields) => {
-    dispatch(updateTimeZone(updatedFields));
+    dispatch(updateReceiptParameter(updatedFields));
   }
 
   useEffect(() => {
