@@ -1,7 +1,37 @@
 
 import { isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
-import { dbSetReceiptParameter, dbSetTimeZone } from './database';
+import { dbSetGenericSelect, dbSetReceiptParameter, dbSetTimeZone } from './database';
+
+export const genericSelect = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/generic-select`;
+    try {
+      const response = await axios.post(path, payload);
+      dispatch(dbSetGenericSelect(response));
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
+export const genericUpdate = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/generic-update`;
+    try {
+      await axios.post(path, payload);
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
 
 export const getTimeZone = () => {
   return async (dispatch) => {
@@ -25,7 +55,7 @@ export const updateTimeZone = (payload) => {
     try {
       // dispatch(setLoading(true));
       await axios.post(path, payload);
-      // dispatch(setLoading(false));
+      dispatch(getTimeZone());
     } catch (e) {
       // dispatch(setLoading(false));
       console.error(e);
@@ -57,7 +87,7 @@ export const updateReceiptParameter = (payload) => {
     try {
       // dispatch(setLoading(true));
       await axios.post(path, payload);
-      // dispatch(setLoading(false));
+      dispatch(getReceiptParameter());
     } catch (e) {
       // dispatch(setLoading(false));
       console.error(e);

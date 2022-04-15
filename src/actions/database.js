@@ -1,6 +1,14 @@
 import { TYPES } from "../constants/types";
 
 
+
+export const dbSetGenericSelect = ({data}) => {
+    return {
+        type: TYPES.dbSetGenericSelect,
+        payload: data
+    }
+};
+
 export const dbSetTimeZone = ({ time_zone }) => {
     return {
         type: TYPES.dbSetTimeZone,

@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import TimeZone from './components/TimeZone'
 import RequireAuth from './components/RequireAuth'
 import { Provider } from 'react-redux'
-import {store} from './store/store'
+import { store } from './store/store'
 import ReceiptParameters from './components/ReceiptParameters'
 import InvoiceParameters from './components/InvoiceParameters'
 import EmailSales from './components/EmailSales'
@@ -33,20 +33,20 @@ const App = () => {
             <Route path='/home/*' element={<Home />}>
               <Route path='time-zone' element={<TimeZone />} />
               <Route path='receipt-parameters' element={<ReceiptParameters />} />
-              <Route path='invoice-parameters' element={<RequireAuth component={<InvoiceParameters />} />} />
-              <Route path='email-sales' element={<RequireAuth component={<EmailSales />} />} />
+              <Route path='invoice-parameters' element={<InvoiceParameters />} />
+              <Route path='email-sales' element={<EmailSales />} />
               <Route path='sales-xone' element={<RequireAuth component={<SalesToXONE />} />} />
-              <Route path='dashboards-bi' element={<RequireAuth component={<DashboardsBi/>} />} />
-              <Route path='invoice-init' element={<RequireAuth component={<InvoiceInitialConfig/>} />} />
-              <Route path='currency-config' element={<RequireAuth component={<CurrencyConfig/>} />} />
-              <Route path='payment-method' element={<RequireAuth component={<PaymentMethod/>} />} />
-              <Route path='document-type' element={<RequireAuth component={<DocumentType/>} />} />
-              <Route path='delete-transactions' element={<RequireAuth component={<DeleteTransactions/>} />} />
-              <Route path='secuential-change' element={<RequireAuth component={<SecuentialChange/>} />} />
-              <Route path='not-authorized-invoices' element={<RequireAuth component={<NotAuthorizedInvoices/>} />} />
-              <Route path='client-corrections' element={<RequireAuth component={<ClientCorrections/>} />} />
-              <Route path='round-corrections' element={<RequireAuth component={<RoundCorrections/>} />} />
-              <Route path='fordward-invoice' element={<RequireAuth component={<FordwardInvoice/>} />} />
+              <Route path='dashboards-bi' element={<RequireAuth component={<DashboardsBi />} />} />
+              <Route path='invoice-init' element={<RequireAuth component={<InvoiceInitialConfig />} />} />
+              <Route path='currency-config' element={<RequireAuth component={<CurrencyConfig />} />} />
+              <Route path='payment-method' element={<RequireAuth component={<PaymentMethod />} />} />
+              <Route path='document-type' element={<RequireAuth component={<DocumentType />} />} />
+              <Route path='delete-transactions' element={<RequireAuth component={<DeleteTransactions />} />} />
+              <Route path='secuential-change' element={<RequireAuth component={<SecuentialChange />} />} />
+              <Route path='not-authorized-invoices' element={<RequireAuth component={<NotAuthorizedInvoices />} />} />
+              <Route path='client-corrections' element={<RequireAuth component={<ClientCorrections />} />} />
+              <Route path='round-corrections' element={<RequireAuth component={<RoundCorrections />} />} />
+              <Route path='fordward-invoice' element={<RequireAuth component={<FordwardInvoice />} />} />
             </Route>
             <Route path='/sidebar' element={<Sidebar />} />
             <Route path='/login' element={<Login />} />

@@ -1,11 +1,18 @@
 import { TYPES } from "../constants/types";
 
 const initialState = {
-    time_zone: ""
+    time_zone: "",
+    generic_select: []
 }
 
 export const dbReducer = (state = initialState, action) => {
     switch (action.type) {
+        case TYPES.dbSetGenericSelect:
+            return {
+                ...state,
+                generic_select: action.payload
+            }
+
         case TYPES.dbSetTimeZone:
             return {
                 ...state,

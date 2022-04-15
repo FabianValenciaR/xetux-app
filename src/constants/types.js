@@ -7,4 +7,7 @@ export const TYPES = {
 
     dbSetTimeZone: '[TIMEZONE] set fields',
     dbSetReceiptParameter: '[RECEIPT_PARAMETERS] set fields',
+
+    dbSetGenericSelect: '[GENERIC_SELECT] set fields',
+
 }

@@ -23,6 +23,7 @@ const TimeZone = () => {
   }
 
   const updateItems = (updatedFields) => {
+    console.log(updatedFields);
     dispatch(updateTimeZone(updatedFields));
   }
 

@@ -14,7 +14,7 @@ import { get, isEmpty } from "lodash";
 
 const TableInputEdit = ({ fields, tableName, onUpdate }) => {
     const [tableFields, setTableFields] = useState(fields)
-    const [formValues, handleInputChange] = useForm();
+    const [formValues, handleInputChange, initFormFields] = useForm();
 
     const handleUpdate = () => {
         let valuesToBeUpdated = formValues
@@ -37,16 +37,16 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
     }
 
     const initializeInputs = () => {
+        let updatedValues = {};
         tableFields.forEach(tableField => {
             if (!isEmpty(tableField.updated)) {
-                handleInputChange({
-                    target: {
-                        name: get(tableField, "key", ""),
-                        value: tableField.updated
-                    }
-                })
+                updatedValues = {
+                    ...updatedValues,
+                    [`${tableField.key}`]: `${tableField.updated}`
+                }
             }
         });
+        initFormFields(updatedValues)
     }
 
     useEffect(() => {
@@ -61,7 +61,7 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
             <Typography variant="h5" align='center' component="div" gutterBottom>
                 {tableName}
             </Typography>
-            <TableContainer component={Paper}>
+            <TableContainer elevation={6} sx={{ mt: 4, mb: 4 }} component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -81,13 +81,13 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
                                 </TableCell>
                                 <TableCell align="center">{row.current}</TableCell>
                                 <TableCell align="center">
-                                    {get(row, "isDisabled", false) ?
+                                    {/* {get(row, "isDisabled", false) ?
                                         <Typography key={row.key} variant="h7" align='center' component="div" gutterBottom>
                                             {row.updated}
                                         </Typography> :
                                         <TextField key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange} />
-                                    }
-                                    {/* <TextField disabled={get(row, "isDisabled", false)} key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange} /> */}
+                                    } */}
+                                    <TextField disabled={get(row, "isDisabled", false)} key={row.key} name={row.key} value={formValues[row.key]} onChange={handleInputChange} />
                                 </TableCell>
                             </TableRow>
                         ))}

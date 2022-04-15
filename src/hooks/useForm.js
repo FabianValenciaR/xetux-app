@@ -6,8 +6,8 @@ export const useForm = (initialState = {}) => {
 
     const [values, setValues] = useState(initialState);
 
-    const reset = () => {
-        setValues(initialState);
+    const init = (initialValues) => {
+        setValues(initialValues);
     }
 
 
@@ -20,6 +20,6 @@ export const useForm = (initialState = {}) => {
 
     }
 
-    return [values, handleInputChange, reset];
+    return [values, handleInputChange, init];
 
 }
