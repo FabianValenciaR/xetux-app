@@ -27,3 +27,10 @@ export const dbSetReceiptParameter = ({ imp, id, invoiceNum, currency }) => {
         }
     }
 };
+
+export const dbSetNotificationEmails = (data) => {
+    return {
+        type: TYPES.dbSetNotificationEmails,
+        payload: data
+    }
+};

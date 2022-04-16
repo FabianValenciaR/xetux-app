@@ -1,7 +1,7 @@
 
 import { isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
-import { dbSetGenericSelect, dbSetReceiptParameter, dbSetTimeZone } from './database';
+import { dbSetGenericSelect, dbSetNotificationEmails, dbSetReceiptParameter, dbSetTimeZone } from './database';
 
 export const genericSelect = (payload) => {
   return async (dispatch) => {
@@ -88,6 +88,31 @@ export const updateReceiptParameter = (payload) => {
       // dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getReceiptParameter());
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
+export const getNotificationEmails = () => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/notification-emails`;
+    try {
+      // dispatch(setLoading(true));
+      const response = await axios.get(path);
+      let formated_emails = [];
+      response.data.forEach(notiEmail => {
+        let notifyInventory = notiEmail.EnviarInventario === "1" ? true : false;
+        let notifySales = notiEmail.EnviarVentas === "1" ? true : false;
+        formated_emails = [
+          ...formated_emails,
+          { id: notiEmail.Correo, email: notiEmail.Correo, notifyInventory: notifyInventory, notifySales: notifySales }
+        ]
+      });
+      if (!isEmpty(response.data)) dispatch(dbSetNotificationEmails(formated_emails));
     } catch (e) {
       // dispatch(setLoading(false));
       console.error(e);

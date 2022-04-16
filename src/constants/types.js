@@ -10,4 +10,6 @@ export const TYPES = {
 
     dbSetGenericSelect: '[GENERIC_SELECT] set fields',
 
+    dbSetNotificationEmails: '[EMAILS] set notification emails',
+
 }

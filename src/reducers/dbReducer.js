@@ -2,7 +2,8 @@ import { TYPES } from "../constants/types";
 
 const initialState = {
     time_zone: "",
-    generic_select: []
+    generic_select: [],
+    notification_emails: []
 }
 
 export const dbReducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ export const dbReducer = (state = initialState, action) => {
                 12: action.payload["12"],
                 20: action.payload["20"],
                 21: action.payload["21"]
+            }
+
+        case TYPES.dbSetNotificationEmails:
+            return {
+                ...state,
+                notification_emails: action.payload
             }
 
         default:

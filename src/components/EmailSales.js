@@ -1,14 +1,14 @@
 import { Container, Grid, Paper, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TABLES } from '../constants/tables'
 import { styled } from '@mui/material/styles';
 import EmailSalesBody from './shared/EmailBody';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNotificationEmails } from '../actions/http';
 
 const EmailSales = () => {
-  let initial_state = [
-    { id: "test@test.com", email: "test@test.com", notifyInventory: true, notifySales: false, isDisabled: true },
-    { id: "fabito@test.com", email: "fabito@test.com", notifyInventory: true, notifySales: true, isDisabled: false },
-  ]
+  const dispatch = useDispatch();
+  const initial_state = useSelector((state) => state.db.notification_emails);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#eee',
@@ -18,7 +18,10 @@ const EmailSales = () => {
     color: theme.palette.text.secondary,
   }));
 
-
+  useEffect(() => {
+    dispatch(getNotificationEmails())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>
