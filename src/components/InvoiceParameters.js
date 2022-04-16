@@ -32,12 +32,16 @@ const InvoiceParameters = () => {
     Object.keys(values).forEach((item, i) => {
       let key = item
       let value = Object.values(values)[i];
-      updated_fields.push({ key, value })
+      updated_fields = [
+        ...updated_fields,
+        { key, value }
+      ];
     });
     updateItems(updated_fields)
   }
 
   const updateItems = (updatedFields) => {
+    updateRecords = [];
     updatedFields.forEach(field => {
       updateRecords = [
         ...updateRecords,

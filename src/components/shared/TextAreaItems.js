@@ -10,7 +10,7 @@ export const TextAreaItems = ({ fields, tableName, onUpdate }) => {
     let textAreaValues = {};
 
     const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#dddddd',
+        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#eee',
         ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
@@ -87,10 +87,10 @@ export const TextAreaItems = ({ fields, tableName, onUpdate }) => {
                 {tableFields.map((row) => (
                     <>
                         <Grid item alignSelf={'center'} xs={2}>
-                            <Item elevation={6} >{row.key}</Item>
+                            <Item elevation={3} >{row.key}</Item>
                         </Grid>
                         <Grid item xs={10}>
-                            <Item elevation={6} >
+                            <Item elevation={3} >
                                 <TextareaAutosize
                                     onChange={onChange}
                                     key={row.key}
