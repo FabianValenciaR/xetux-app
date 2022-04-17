@@ -10,7 +10,7 @@ import { Button, Container, TextField, Typography } from '@mui/material';
 import { useForm } from '../hooks/useForm'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { get, isEmpty } from "lodash";
+import { defaultTo, get, isEmpty } from "lodash";
 
 const TableInputEdit = ({ fields, tableName, onUpdate }) => {
     const [tableFields, setTableFields] = useState(fields)
@@ -72,7 +72,7 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tableFields.map((row) => (
+                        {defaultTo(tableFields, []).map((row) => (
                             <TableRow
                                 key={row.key}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -80,7 +80,7 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
                                 <TableCell component="th" scope="row">
                                     {row.key}
                                 </TableCell>
-                                <TableCell align="center">{row.current}</TableCell>
+                                <TableCell sx={{ maxWidth: 300, wordBreak: 'break-word' }} align="center">{row.current}</TableCell>
                                 <TableCell align="center">
                                     {/* {get(row, "isDisabled", false) ?
                                         <Typography key={row.key} variant="h7" align='center' component="div" gutterBottom>

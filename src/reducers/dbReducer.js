@@ -2,6 +2,7 @@ import { TYPES } from "../constants/types";
 
 const initialState = {
     time_zone: "",
+    dashboard_config: [],
     generic_select: [],
     xone_config: []
 }
@@ -41,6 +42,11 @@ export const dbReducer = (state = initialState, action) => {
                 xone_config: action.payload
             }
 
+        case TYPES.dbSetDashboardConfig:
+            return {
+                ...state,
+                dashboard_config: action.payload
+            }
 
         default:
             return state

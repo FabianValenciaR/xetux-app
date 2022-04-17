@@ -14,4 +14,6 @@ export const TYPES = {
 
     dbSetXoneConfig: '[XONE] set config fields',
 
+    dbSetDashboardConfig: '[DASHBOARD] set config',
+
 }

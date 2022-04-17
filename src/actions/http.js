@@ -1,7 +1,7 @@
 
 import { isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
-import { dbSetGenericSelect, dbSetNotificationEmails, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
+import { dbSetDashboardCondig, dbSetGenericSelect, dbSetNotificationEmails, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
 
 export const genericSelect = (payload) => {
   return async (dispatch) => {
@@ -154,6 +154,38 @@ export const updateXoneConfig = (payload) => {
       // dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getXoneConfig());
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
+export const getDashboardConfig = () => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/dashboard-config`;
+    try {
+      // dispatch(setLoading(true));
+      const response = await axios.get(path);
+      if (!isEmpty(response.data[0])) dispatch(dbSetDashboardCondig(response.data[0]));
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
+export const updateDashboardConfig = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/dashboard-config`;
+    try {
+      // dispatch(setLoading(true));
+      await axios.post(path, payload);
+      dispatch(getDashboardConfig());
     } catch (e) {
       // dispatch(setLoading(false));
       console.error(e);

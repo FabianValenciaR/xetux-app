@@ -41,3 +41,10 @@ export const dbSetXoneConfig = (data) => {
         payload: data
     }
 };
+
+export const dbSetDashboardCondig = ({ url }) => {
+    return {
+        type: TYPES.dbSetDashboardConfig,
+        payload: url
+    }
+};
