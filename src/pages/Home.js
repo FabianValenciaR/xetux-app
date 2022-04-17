@@ -12,6 +12,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Sidebar from '../components/Sidebar'
 import { Outlet } from 'react-router-dom';
+import logo from '../assets/images/logo.png'
+
+
 const drawerWidth = 260;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -104,9 +107,9 @@ const Home = () => {
             >
                 <DrawerHeader sx={{
                     bgcolor: '#1976d2',
-                    color: '#fff'
+                    color: '#fff',
                 }}>
-                    Logo Goes here
+                    <img src={logo} height={60} style={{ marginRight: "25px" }} alt='XETUX' />
                     <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon htmlColor='#fff' />
                     </IconButton>

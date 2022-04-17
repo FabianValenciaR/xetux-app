@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginBackground from '../assets/images/login-background.png'
+import logo from '../assets/images/logo.png'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUsernameAndPassword } from '../actions/auth';
@@ -26,7 +27,7 @@ const Login = () => {
     dispatch(loginUsernameAndPassword(username, password));
     navigate("/home/time-zone");
   };
-  
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -35,13 +36,15 @@ const Login = () => {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
-              my: 8,
               mx: 4,
+              height: '100%',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
+            <img src={logo} width={200} alt='XETUX' />
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"

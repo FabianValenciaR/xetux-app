@@ -5,7 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { AirlineStops, KeyboardArrowDown, MiscellaneousServices, Receipt } from '@mui/icons-material';
 import { ListItemButton } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import NavLinkSidebar from './shared/NavLinkSidebar';
 
 const generalSubmenu = [
     { label: 'Zona Horaria', url: "/home/time-zone" },
@@ -78,19 +78,8 @@ const Sidebar = () => {
                     />
                 </ListItemButton>
                 {openGeneralMenu &&
-                    generalSubmenu.map((item) => (
-                        <NavLink to={item.url}>
-                            <ListItemButton
-                                key={item.label}
-                                sx={{ py: 0, minHeight: 32 }}
-                            >
-                                <ListItemText
-                                    primary={item.label}
-                                    primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-                                />
-                            </ListItemButton>
-                        </NavLink>
-                    ))}
+                    <NavLinkSidebar subMenu={generalSubmenu} />
+                }
                 <ListItemButton
                     alignItems="flex-start"
                     onClick={() => setOpenInvoicesMenu(!openInvoicesMenu)}
@@ -123,19 +112,8 @@ const Sidebar = () => {
                     />
                 </ListItemButton>
                 {openInvoicesMenu &&
-                    invoicesSubmenu.map((item) => (
-                        <NavLink to={item.url}>
-                            <ListItemButton
-                                key={item.label}
-                                sx={{ py: 0, minHeight: 32 }}
-                            >
-                                <ListItemText
-                                    primary={item.label}
-                                    primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-                                />
-                            </ListItemButton>
-                        </NavLink>
-                    ))}
+                    <NavLinkSidebar subMenu={invoicesSubmenu} />
+                }
                 <ListItemButton
                     alignItems="flex-start"
                     onClick={() => setOpenForwardInvoicesMenu(!openForwardInvoicesMenu)}
@@ -168,19 +146,8 @@ const Sidebar = () => {
                     />
                 </ListItemButton>
                 {openForwardInvoicesMenu &&
-                    forwardInvoicesSubmenu.map((item) => (
-                        <NavLink to={item.url}>
-                            <ListItemButton
-                                key={item.label}
-                                sx={{ py: 0, minHeight: 32 }}
-                            >
-                                <ListItemText
-                                    primary={item.label}
-                                    primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-                                />
-                            </ListItemButton>
-                        </NavLink>
-                    ))}
+                    <NavLinkSidebar subMenu={forwardInvoicesSubmenu} />
+                }
             </Box>
         </List>
     );
