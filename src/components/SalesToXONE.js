@@ -10,7 +10,6 @@ const SalesToXONE = () => {
   const [tableFields, setTableFields] = useState(xone_config);
 
   const handleUpdate = (values) => {
-    console.log(values);
     let updated_fields = [];
     Object.keys(values).forEach((item, i) => {
       let key = item
@@ -21,7 +20,6 @@ const SalesToXONE = () => {
   }
 
   const updateItems = (updatedFields) => {
-    console.log(updatedFields);
     dispatch(updateXoneConfig(updatedFields));
   }
 
