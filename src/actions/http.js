@@ -122,6 +122,39 @@ export const getNotificationEmails = () => {
   };
 };
 
+export const deleteNotificationEmails = (email) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/notification-emails/${email}`;
+    try {
+      // dispatch(setLoading(true));
+      await axios.delete(path);
+      dispatch(getNotificationEmails());
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
+export const updateNotificationEmails = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/notification-emails`;
+    try {
+      // dispatch(setLoading(true));
+      await axios.post(path, payload);
+      dispatch(getNotificationEmails());
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
+
 export const getXoneConfig = () => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/xone-config`;

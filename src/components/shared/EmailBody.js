@@ -1,9 +1,13 @@
 import { Add, Check, Delete, Edit } from '@mui/icons-material'
 import { Grid, IconButton, Switch, TextField, Tooltip } from '@mui/material'
+import { get } from 'lodash';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import shortUUID from 'short-uuid';
+import { deleteNotificationEmails, updateNotificationEmails } from '../../actions/http';
 
 const EmailSalesBody = ({ initial_state }) => {
+    const dispatch = useDispatch();
     const [emails, setEmails] = useState(initial_state);
 
     const handleEmailChange = ({ target }) => {
@@ -37,7 +41,7 @@ const EmailSalesBody = ({ initial_state }) => {
     }
 
     const handleAddEmail = () => {
-        let newEmail = { id: shortUUID.uuid(), email: "", notifyInventory: true, notifySales: true }
+        let newEmail = { id: shortUUID.uuid(), email: "", notifyInventory: true, notifySales: true, isDisabled: false }
         setEmails([
             ...emails,
             newEmail
@@ -64,16 +68,14 @@ const EmailSalesBody = ({ initial_state }) => {
         setEmails([...emails]);
 
         let updated_email = emails.filter((email) => email.id === id);
-        // Dispatch update action
-        console.log(updated_email);
+        dispatch(updateNotificationEmails(updated_email));
     }
 
     const handleDelete = (id) => {
         let remain_emails = emails.filter((email) => email.id !== id);
         setEmails([...remain_emails]);
         let deleted_email = emails.filter((email) => email.id === id);
-        // Dispatch action
-        console.log(deleted_email);
+        dispatch(deleteNotificationEmails(deleted_email[0].id))
     }
 
     return (
@@ -81,16 +83,16 @@ const EmailSalesBody = ({ initial_state }) => {
             {emails?.map((email) => (
                 <React.Fragment key={email.id}>
                     <Grid item alignItems={'center'} alignSelf={'center'} xs={4}>
-                        <TextField disabled={email.isDisabled} key={email.id} name={email.id} value={email.email} onChange={handleEmailChange} />
+                        <TextField disabled={get(email, "isDisabled", true)} key={email.id} name={email.id} value={email.email} onChange={handleEmailChange} />
                     </Grid>
                     <Grid item xs={3}>
-                        <Switch disabled={email.isDisabled} checked={email.notifyInventory} name={email.id} onChange={handleNotifyInventoryChange} />
+                        <Switch disabled={get(email, "isDisabled", true)} checked={email.notifyInventory} name={email.id} onChange={handleNotifyInventoryChange} />
                     </Grid>
                     <Grid item xs={3}>
-                        <Switch disabled={email.isDisabled} checked={email.notifySales} name={email.id} onChange={handleNotifySalesChange} />
+                        <Switch disabled={get(email, "isDisabled", true)} checked={email.notifySales} name={email.id} onChange={handleNotifySalesChange} />
                     </Grid>
                     <Grid item xs={2}>
-                        {email.isDisabled ?
+                        {get(email, "isDisabled", true) ?
                             <>
                                 <Tooltip title="Editar">
                                     <IconButton onClick={() => handleEdit(email.id)} color="primary" aria-label="upload picture" component="span">
