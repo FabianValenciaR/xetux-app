@@ -2,6 +2,7 @@ import { TYPES } from "../constants/types";
 
 const initialState = {
     loading: false,
+    title: "",
     msgError: null
 }
 
@@ -11,6 +12,18 @@ export const uiReducer = (state = initialState, action) => {
             return {
                 ...state,
                 msgError: action.payload
+            }
+
+        case TYPES.uiSetLoading:
+            return {
+                ...state,
+                loading: action.payload
+            }
+
+        case TYPES.uiSetTitle:
+            return {
+                ...state,
+                title: action.payload
             }
 
         case TYPES.uiRemoveError:

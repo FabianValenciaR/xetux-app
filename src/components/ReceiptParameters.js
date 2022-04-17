@@ -35,7 +35,7 @@ const ReceiptParameters = () => {
 
   useEffect(() => {
     dispatch(getReceiptParameter())
-  });
+  }, []);
 
   useEffect(() => {
     initial_fields.map((field) => {

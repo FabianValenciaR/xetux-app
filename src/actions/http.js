@@ -2,6 +2,7 @@
 import { isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
 import { dbSetDashboardCondig, dbSetGenericSelect, dbSetNotificationEmails, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
+import { setLoading } from './ui';
 
 export const genericSelect = (payload) => {
   return async (dispatch) => {
@@ -10,10 +11,10 @@ export const genericSelect = (payload) => {
       const response = await axios.post(path, payload);
       dispatch(dbSetGenericSelect(response));
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -24,10 +25,10 @@ export const genericUpdate = (payload) => {
     try {
       await axios.post(path, payload);
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -37,14 +38,14 @@ export const getTimeZone = () => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/time-zone`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       const response = await axios.get(path);
       if (!isEmpty(response.data[0])) dispatch(dbSetTimeZone(response.data[0]));
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -53,14 +54,14 @@ export const updateTimeZone = (payload) => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/time-zone`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getTimeZone());
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -69,14 +70,14 @@ export const getReceiptParameter = () => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/receipt-parameter`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       const response = await axios.get(path);
       if (!isEmpty(response.data)) dispatch(dbSetReceiptParameter({ imp: response.data[0], id: response.data[1], invoiceNum: response.data[2], currency: response.data[3] }));
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -85,14 +86,14 @@ export const updateReceiptParameter = (payload) => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/receipt-parameter`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getReceiptParameter());
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -101,7 +102,7 @@ export const getNotificationEmails = () => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/notification-emails`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       const response = await axios.get(path);
       let formated_emails = [];
       response.data.forEach(notiEmail => {
@@ -114,10 +115,10 @@ export const getNotificationEmails = () => {
       });
       if (!isEmpty(response.data)) dispatch(dbSetNotificationEmails(formated_emails));
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -126,14 +127,14 @@ export const deleteNotificationEmails = (email) => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/notification-emails/${email}`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       await axios.delete(path);
       dispatch(getNotificationEmails());
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -142,14 +143,14 @@ export const updateNotificationEmails = (payload) => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/notification-emails`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getNotificationEmails());
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -159,7 +160,7 @@ export const getXoneConfig = () => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/xone-config`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       const response = await axios.get(path);
       if (!isEmpty(response.data[0])) {
         let initial_fields = [];
@@ -172,10 +173,10 @@ export const getXoneConfig = () => {
         dispatch(dbSetXoneConfig(initial_fields))
       }
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -184,14 +185,14 @@ export const updateXoneConfig = (payload) => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/xone-config`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getXoneConfig());
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -200,14 +201,14 @@ export const getDashboardConfig = () => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/dashboard-config`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       const response = await axios.get(path);
       if (!isEmpty(response.data[0])) dispatch(dbSetDashboardCondig(response.data[0]));
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };
@@ -216,14 +217,14 @@ export const updateDashboardConfig = (payload) => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/dashboard-config`;
     try {
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getDashboardConfig());
     } catch (e) {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
       console.error(e);
     } finally {
-      // dispatch(setLoading(false));
+      dispatch(setLoading(false));
     }
   };
 };

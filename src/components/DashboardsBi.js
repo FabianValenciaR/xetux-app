@@ -28,7 +28,8 @@ const DashboardsBi = () => {
 
   useEffect(() => {
     dispatch(getDashboardConfig())
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     initial_fields.map((field) => {
@@ -43,7 +44,7 @@ const DashboardsBi = () => {
   }, [dashboard_config]);
 
   return (
-    <TableInputEdit fields={tableFields} tableName={TABLES.T_SYS_REGION_TIMEZONE} onUpdate={handleUpdate} />
+    <TableInputEdit fields={tableFields} tableName={TABLES.T_PA_EXTERNAL_DASHBOARD} onUpdate={handleUpdate} />
   )
 }
 

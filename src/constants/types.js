@@ -3,6 +3,8 @@ export const TYPES = {
     logout: '[Auth] Logout',
 
     uiSetError: '[UI] Set Error',
+    uiSetLoading: '[UI] Set Loading',
+    uiSetTitle: '[UI] Set Title',
     uiRemoveError: '[UI] Remove Error',
 
     dbSetTimeZone: '[TIMEZONE] set fields',

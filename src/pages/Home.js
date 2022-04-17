@@ -13,6 +13,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Sidebar from '../components/Sidebar'
 import { Outlet } from 'react-router-dom';
 import logo from '../assets/images/logo.png'
+import { useSelector } from 'react-redux';
 
 
 const drawerWidth = 260;
@@ -63,7 +64,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const Home = () => {
+    const title = useSelector((state) => state.ui.title);
+    const [homeTitle, setHomeTitle] = React.useState(title);
     const [openDrawer, setOpenDrawer] = React.useState(false);
+
 
     const handleDrawerOpen = () => {
         setOpenDrawer(true);
@@ -72,6 +76,11 @@ const Home = () => {
     const handleDrawerClose = () => {
         setOpenDrawer(false);
     };
+
+    React.useEffect(() => {
+        setHomeTitle(title)
+    }, [title])
+
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -88,7 +97,7 @@ const Home = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Dashboard
+                        {homeTitle}
                     </Typography>
                 </Toolbar>
             </AppBar>
