@@ -78,7 +78,7 @@ const EmailSalesBody = ({ initial_state }) => {
 
     return (
         <>
-            {emails.map((email) => (
+            {emails?.map((email) => (
                 <React.Fragment key={email.id}>
                     <Grid item alignItems={'center'} alignSelf={'center'} xs={4}>
                         <TextField disabled={email.isDisabled} key={email.id} name={email.id} value={email.email} onChange={handleEmailChange} />

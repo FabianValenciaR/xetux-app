@@ -34,3 +34,10 @@ export const dbSetNotificationEmails = (data) => {
         payload: data
     }
 };
+
+export const dbSetXoneConfig = (data) => {
+    return {
+        type: TYPES.dbSetXoneConfig,
+        payload: data
+    }
+};

@@ -1,7 +1,7 @@
 
 import { isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
-import { dbSetGenericSelect, dbSetNotificationEmails, dbSetReceiptParameter, dbSetTimeZone } from './database';
+import { dbSetGenericSelect, dbSetNotificationEmails, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
 
 export const genericSelect = (payload) => {
   return async (dispatch) => {
@@ -113,6 +113,47 @@ export const getNotificationEmails = () => {
         ]
       });
       if (!isEmpty(response.data)) dispatch(dbSetNotificationEmails(formated_emails));
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
+export const getXoneConfig = () => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/xone-config`;
+    try {
+      // dispatch(setLoading(true));
+      const response = await axios.get(path);
+      if (!isEmpty(response.data[0])) {
+        let initial_fields = [];
+        Object.keys(response.data[0]).forEach(key => {
+          initial_fields = [
+            ...initial_fields,
+            { key: key, current: response.data[0][key], updated: "", isDisabled: false }
+          ]
+        });
+        dispatch(dbSetXoneConfig(initial_fields))
+      }
+    } catch (e) {
+      // dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
+};
+
+export const updateXoneConfig = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/xone-config`;
+    try {
+      // dispatch(setLoading(true));
+      await axios.post(path, payload);
+      dispatch(getXoneConfig());
     } catch (e) {
       // dispatch(setLoading(false));
       console.error(e);

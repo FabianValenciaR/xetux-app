@@ -3,7 +3,7 @@ import { TYPES } from "../constants/types";
 const initialState = {
     time_zone: "",
     generic_select: [],
-    notification_emails: []
+    xone_config: []
 }
 
 export const dbReducer = (state = initialState, action) => {
@@ -34,6 +34,13 @@ export const dbReducer = (state = initialState, action) => {
                 ...state,
                 notification_emails: action.payload
             }
+
+        case TYPES.dbSetXoneConfig:
+            return {
+                ...state,
+                xone_config: action.payload
+            }
+
 
         default:
             return state

@@ -12,4 +12,6 @@ export const TYPES = {
 
     dbSetNotificationEmails: '[EMAILS] set notification emails',
 
+    dbSetXoneConfig: '[XONE] set config fields',
+
 }

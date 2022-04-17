@@ -17,13 +17,14 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
     const [formValues, handleInputChange, initFormFields] = useForm();
 
     const handleUpdate = () => {
-        let valuesToBeUpdated = formValues
+        let valuesToBeUpdated = formValues;
         tableFields.forEach(tableField => {
             if (isEmpty(valuesToBeUpdated[tableField.key])) {
-                console.log("ENTERED");
+                let inputValue = isEmpty(get(tableField, "updated", "")) ? get(tableField, "current", "") : get(tableField, "updated", "");
+
                 let newValue = {
                     key: get(tableField, "key", ""),
-                    value: get(tableField, "updated", "")
+                    value: inputValue
                 }
 
                 valuesToBeUpdated = {

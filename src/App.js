@@ -35,7 +35,7 @@ const App = () => {
               <Route path='receipt-parameters' element={<ReceiptParameters />} />
               <Route path='invoice-parameters' element={<InvoiceParameters />} />
               <Route path='email-sales' element={<EmailSales />} />
-              <Route path='sales-xone' element={<RequireAuth component={<SalesToXONE />} />} />
+              <Route path='sales-xone' element={<SalesToXONE />} />
               <Route path='dashboards-bi' element={<RequireAuth component={<DashboardsBi />} />} />
               <Route path='invoice-init' element={<RequireAuth component={<InvoiceInitialConfig />} />} />
               <Route path='currency-config' element={<RequireAuth component={<CurrencyConfig />} />} />
