@@ -39,7 +39,7 @@ const TableInputEdit = ({ fields, tableName, onUpdate }) => {
 
     const initializeInputs = () => {
         let updatedValues = {};
-        tableFields.forEach(tableField => {
+        tableFields?.forEach(tableField => {
             if (!isEmpty(tableField.updated)) {
                 updatedValues = {
                     ...updatedValues,

@@ -4,7 +4,9 @@ const initialState = {
     time_zone: "",
     dashboard_config: [],
     generic_select: [],
-    xone_config: []
+    xone_config: [],
+    payment_methods: [],
+    notification_emails: [],
 }
 
 export const dbReducer = (state = initialState, action) => {
@@ -43,6 +45,12 @@ export const dbReducer = (state = initialState, action) => {
             }
 
         case TYPES.dbSetDashboardConfig:
+            return {
+                ...state,
+                dashboard_config: action.payload
+            }
+
+        case TYPES.dbSetPaymentMethods:
             return {
                 ...state,
                 dashboard_config: action.payload

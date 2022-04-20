@@ -1,7 +1,7 @@
 
 import { isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
-import { dbSetDashboardCondig, dbSetGenericSelect, dbSetNotificationEmails, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
+import { dbSetDashboardCondig, dbSetGenericSelect, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
 import { setLoading } from './ui';
 
 export const genericSelect = (payload) => {
@@ -113,7 +113,10 @@ export const getNotificationEmails = () => {
           { id: notiEmail.Correo, email: notiEmail.Correo, notifyInventory: notifyInventory, notifySales: notifySales }
         ]
       });
-      if (!isEmpty(response.data)) dispatch(dbSetNotificationEmails(formated_emails));
+      if (!isEmpty(response.data))
+        dispatch(dbSetNotificationEmails(formated_emails));
+      else
+        dispatch(dbSetNotificationEmails([]));
     } catch (e) {
       dispatch(setLoading(false));
       console.error(e);
@@ -220,6 +223,22 @@ export const updateDashboardConfig = (payload) => {
       dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getDashboardConfig());
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const getPaymentMethods = () => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/payment-methods`;
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(path);
+      if (!isEmpty(response.data[0])) dispatch(dbSetPaymentMethods(response.data[0]));
     } catch (e) {
       dispatch(setLoading(false));
       console.error(e);

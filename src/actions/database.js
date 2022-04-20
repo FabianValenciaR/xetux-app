@@ -48,3 +48,10 @@ export const dbSetDashboardCondig = ({ url }) => {
         payload: url
     }
 };
+
+export const dbSetPaymentMethods = (data) => {
+    return {
+        type: TYPES.dbSetPaymentMethods,
+        payload: data
+    }
+};

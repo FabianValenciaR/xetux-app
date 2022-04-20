@@ -28,7 +28,8 @@ const TimeZone = () => {
 
   useEffect(() => {
     dispatch(getTimeZone())
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     initial_fields.map((field) => {

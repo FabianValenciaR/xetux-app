@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TableInputEdit from './TableInputEdit'
 import { TABLES } from '../constants/tables'
 import { useDispatch, useSelector } from 'react-redux';
-import { getDashboardConfig, updateDashboardConfig, updateTimeZone } from '../actions/http';
+import { getDashboardConfig, updateDashboardConfig } from '../actions/http';
 
 const DashboardsBi = () => {
   const dispatch = useDispatch();

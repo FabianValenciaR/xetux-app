@@ -52,8 +52,8 @@ const LoaderWrapper = () => {
                 <Routes>
                     <Route path='/home/*' element={<Home />}>
                         {/* CONFIGURACION GENERAL */}
-                        <Route path='time-zone' element={<RequireAuth component={<TimeZone />} />} />
-                        <Route path='receipt-parameters' element={<ReceiptParameters />} />
+                        <Route path='time-zone' element={<TimeZone />} />
+                        <Route path='receipt-parameters' element={<RequireAuth component={<ReceiptParameters />} />} />
                         <Route path='invoice-parameters' element={<InvoiceParameters />} />
                         <Route path='email-sales' element={<EmailSales />} />
                         <Route path='sales-xone' element={<SalesToXONE />} />
@@ -61,17 +61,18 @@ const LoaderWrapper = () => {
 
                         {/* FACTURAS ELECTRÓNICAS */}
                         <Route path='invoice-init' element={<InvoiceInitialConfig />} />
-                        <Route path='currency-config' element={<RequireAuth component={<CurrencyConfig />} />} />
-                        <Route path='payment-method' element={<RequireAuth component={<PaymentMethod />} />} />
-                        <Route path='document-type' element={<RequireAuth component={<DocumentType />} />} />
-                        <Route path='delete-transactions' element={<RequireAuth component={<DeleteTransactions />} />} />
-                        <Route path='secuential-change' element={<RequireAuth component={<SecuentialChange />} />} />
+                        <Route path='currency-config' element={<CurrencyConfig />} />
+                        <Route path='payment-method' element={<PaymentMethod />} />
+                        <Route path='document-type' element={<DocumentType />} />
+                        {/* TODO: Unir estas secciones */}
+                        <Route path='delete-transactions' element={<DeleteTransactions />} />
+                        <Route path='secuential-change' element={<SecuentialChange />} />
 
                         {/* FACTURAS ELECTRÓNICAS */}
-                        <Route path='not-authorized-invoices' element={<RequireAuth component={<NotAuthorizedInvoices />} />} />
-                        <Route path='client-corrections' element={<RequireAuth component={<ClientCorrections />} />} />
-                        <Route path='round-corrections' element={<RequireAuth component={<RoundCorrections />} />} />
-                        <Route path='fordward-invoice' element={<RequireAuth component={<FordwardInvoice />} />} />
+                        <Route path='not-authorized-invoices' element={<NotAuthorizedInvoices />} />
+                        <Route path='client-corrections' element={<ClientCorrections />} />
+                        <Route path='round-corrections' element={<RoundCorrections />} />
+                        <Route path='fordward-invoice' element={<FordwardInvoice />} />
                     </Route>
                     <Route path='/sidebar' element={<Sidebar />} />
                     <Route path='/login' element={<Login />} />

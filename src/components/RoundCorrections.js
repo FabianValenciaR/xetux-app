@@ -2,7 +2,7 @@ import React from 'react'
 
 const RoundCorrections = () => {
   return (
-    <div>RoundCorrections</div>
+    <div>Posiblemente se borre</div>
   )
 }
 

@@ -18,4 +18,7 @@ export const TYPES = {
 
     dbSetDashboardConfig: '[DASHBOARD] set config',
 
+    dbSetPaymentMethods: '[PAYMENT_METHODS] set fields',
+
+
 }
