@@ -20,5 +20,5 @@ export const TYPES = {
 
     dbSetPaymentMethods: '[PAYMENT_METHODS] set fields',
 
-
+    dbSetInvoiceConfig: '[INVOICE_CONFIG] set fields',
 }

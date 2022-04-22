@@ -2,7 +2,7 @@ import { TYPES } from "../constants/types";
 
 
 
-export const dbSetGenericSelect = ({data}) => {
+export const dbSetGenericSelect = ({ data }) => {
     return {
         type: TYPES.dbSetGenericSelect,
         payload: data
@@ -52,6 +52,13 @@ export const dbSetDashboardCondig = ({ url }) => {
 export const dbSetPaymentMethods = (data) => {
     return {
         type: TYPES.dbSetPaymentMethods,
+        payload: data
+    }
+};
+
+export const dbSetInvoiceConfig = (data) => {
+    return {
+        type: TYPES.dbSetInvoiceConfig,
         payload: data
     }
 };

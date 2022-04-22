@@ -1,7 +1,7 @@
 
 import { defaultTo, get, isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
-import { dbSetDashboardCondig, dbSetGenericSelect, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
+import { dbSetDashboardCondig, dbSetGenericSelect, dbSetInvoiceConfig, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
 import { setLoading } from './ui';
 
 export const genericSelect = (payload) => {
@@ -268,6 +268,47 @@ export const setPaymentMethods = (payload) => {
       dispatch(setLoading(true));
       const response = await axios.post(path, payload);
       dispatch(getPaymentMethods(response));
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const getInvoiceConfig = () => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/invoice-config`;
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(path);
+      if (!isEmpty(response.data[0])) {
+        let initial_fields = [];
+        Object.keys(response.data[0]).forEach(key => {
+          initial_fields = [
+            ...initial_fields,
+            { key: key, current: response.data[0][key], updated: "", isDisabled: false }
+          ]
+        });
+        dispatch(dbSetInvoiceConfig(initial_fields))
+      }
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const updateInvoiceConfig = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/invoice-config`;
+    try {
+      dispatch(setLoading(true));
+      await axios.post(path, payload);
+      dispatch(getInvoiceConfig());
     } catch (e) {
       dispatch(setLoading(false));
       console.error(e);

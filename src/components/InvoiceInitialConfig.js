@@ -1,25 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getInvoiceConfig, updateInvoiceConfig } from '../actions/http';
+import { TABLES } from '../constants/tables';
+import TableInputEdit from './TableInputEdit';
 
 const InvoiceInitialConfig = () => {
+  const dispatch = useDispatch();
+  const invoice_config = useSelector((state) => state.db.invoice_config);
+  const [tableFields, setTableFields] = useState(invoice_config);
 
+  const handleUpdate = (values) => {
+    let updated_fields = [];
+    Object.keys(values).forEach((item, i) => {
+      let key = item
+      let value = Object.values(values)[i];
+      updated_fields.push({ key, value })
+    });
+    updateItems(updated_fields)
+  }
+
+  const updateItems = (updatedFields) => {
+    dispatch(updateInvoiceConfig(updatedFields));
+  }
+
+  useEffect(() => {
+    dispatch(getInvoiceConfig())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setTableFields(invoice_config);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [invoice_config]);
 
   return (
-    <div>
-      <h1>Configuracion Inicial</h1>
-      <p>TABLA: T_POS_WEB_SALES_CONFIG</p>
-      <p>Descripción: </p>
-      <p>external_system_id siempre es 11 </p>
-      <p>external_store_id es el numero de sucursal *</p>
-      <p>auth_user 117 prod 21 pruebas * </p>
-      <p>auth_password da el transportador *</p>
-      <p>activated es 1 </p>
-      <p>url_root lo da el transportador *</p>
-      <p>url_root_2 es el punto de emicion *</p>
-      <p>[classifier] 1 pruebas 2 producción</p>
-      <br></br>
-      <p>TABLA: [T_XSC_SINC_AFTER]</p>
-      <p>Exite un query de creación del registro y puede estar con cualquier numero de punto de emision, sucursal, clave, etc.</p>
-    </div>
+    <TableInputEdit fields={tableFields} tableName={TABLES.T_POS_WEB_SALES_CONFIG} onUpdate={handleUpdate} />
   )
 }
 
