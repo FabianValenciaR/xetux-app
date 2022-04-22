@@ -317,3 +317,18 @@ export const updateInvoiceConfig = (payload) => {
     }
   };
 };
+
+export const updateDocumentTypes = () => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/document-types`;
+    try {
+      dispatch(setLoading(true));
+      await axios.post(path, {});
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
