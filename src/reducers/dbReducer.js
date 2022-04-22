@@ -53,7 +53,7 @@ export const dbReducer = (state = initialState, action) => {
         case TYPES.dbSetPaymentMethods:
             return {
                 ...state,
-                dashboard_config: action.payload
+                payment_methods: action.payload
             }
 
         default:

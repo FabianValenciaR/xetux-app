@@ -1,5 +1,5 @@
 
-import { isEmpty } from 'lodash';
+import { defaultTo, get, isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
 import { dbSetDashboardCondig, dbSetGenericSelect, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
 import { setLoading } from './ui';
@@ -238,7 +238,36 @@ export const getPaymentMethods = () => {
     try {
       dispatch(setLoading(true));
       const response = await axios.get(path);
-      if (!isEmpty(response.data[0])) dispatch(dbSetPaymentMethods(response.data[0]));
+      if (!isEmpty(response.data[0])) {
+        let initial_fields = [];
+        defaultTo(response.data, []).forEach(item => {
+          let initial_field = {
+            key: get(item, "payform_description", ""),
+            current: get(item, "code_timbra_payform", ""),
+            updated:
+              "",
+            isDisabled: false
+          }
+          initial_fields.push(initial_field);
+        });
+        dispatch(dbSetPaymentMethods(initial_fields))
+      }
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const setPaymentMethods = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/generic-update`;
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.post(path, payload);
+      dispatch(getPaymentMethods(response));
     } catch (e) {
       dispatch(setLoading(false));
       console.error(e);
