@@ -332,3 +332,18 @@ export const updateDocumentTypes = () => {
     }
   };
 };
+
+export const updateCurrencyConfig = () => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/currency-config`;
+    try {
+      dispatch(setLoading(true));
+      await axios.post(path, {});
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
