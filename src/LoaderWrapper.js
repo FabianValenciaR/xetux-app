@@ -64,9 +64,7 @@ const LoaderWrapper = () => {
                         <Route path='currency-config' element={<CurrencyConfig />} />
                         <Route path='payment-method' element={<PaymentMethod />} />
                         <Route path='document-type' element={<DocumentType />} />
-                        {/* TODO: Unir estas secciones */}
                         <Route path='delete-transactions' element={<DeleteTransactions />} />
-                        <Route path='secuential-change' element={<SecuentialChange />} />
 
                         {/* FACTURAS ELECTRÓNICAS */}
                         <Route path='not-authorized-invoices' element={<NotAuthorizedInvoices />} />

@@ -22,13 +22,13 @@ const invoicesSubmenu = [
     { label: 'Configuración de Formas de Pago', url: "/home/payment-method" },
     { label: 'Configuración Tipos de Documentos', url: "/home/document-type" },
     { label: 'Eliminación de Transacciones de Prueba (Salida en Vivo)', url: "/home/delete-transactions" },
-    { label: 'Cambio de secuencial de número de factura (Salida en Vivo)', url: "/home/secuential-change" },
+    // { label: 'Cambio de secuencial de número de factura (Salida en Vivo)', url: "/home/secuential-change" },
 ];
 
 const forwardInvoicesSubmenu = [
     { label: 'Listado de Facturas NO AUTORIZADAS', url: "/home/not-authorized-invoices" },
     { label: 'Corrección de Cliente', url: "/home/client-corrections" },
-    { label: 'Corrección de Redondeo', url: "/home/round-corrections" },
+    // { label: 'Corrección de Redondeo', url: "/home/round-corrections" },
     { label: 'Reenvío de Factura', url: "/home/fordward-invoice" },
 ];
 

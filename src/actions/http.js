@@ -347,3 +347,18 @@ export const updateCurrencyConfig = () => {
     }
   };
 };
+
+export const goLive = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/go-live`;
+    try {
+      dispatch(setLoading(true));
+      await axios.post(path, payload);
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
