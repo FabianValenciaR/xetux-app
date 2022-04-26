@@ -7,7 +7,8 @@ const initialState = {
     xone_config: [],
     payment_methods: [],
     notification_emails: [],
-    invoice_config: []
+    invoice_config: [],
+    invoices: [],
 }
 
 export const dbReducer = (state = initialState, action) => {
@@ -61,6 +62,12 @@ export const dbReducer = (state = initialState, action) => {
             return {
                 ...state,
                 invoice_config: action.payload
+            }
+
+        case TYPES.dbSetInvoices:
+            return {
+                ...state,
+                invoices: action.payload
             }
 
         default:

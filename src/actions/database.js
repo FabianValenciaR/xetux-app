@@ -62,3 +62,10 @@ export const dbSetInvoiceConfig = (data) => {
         payload: data
     }
 };
+
+export const dbSetInvoices = (data) => {
+    return {
+        type: TYPES.dbSetInvoices,
+        payload: data
+    }
+};

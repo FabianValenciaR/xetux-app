@@ -1,7 +1,7 @@
 
 import { defaultTo, get, isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
-import { dbSetDashboardCondig, dbSetGenericSelect, dbSetInvoiceConfig, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
+import { dbSetDashboardCondig, dbSetGenericSelect, dbSetInvoiceConfig, dbSetInvoices, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
 import { setLoading } from './ui';
 
 export const genericSelect = (payload) => {
@@ -354,6 +354,23 @@ export const goLive = (payload) => {
     try {
       dispatch(setLoading(true));
       await axios.post(path, payload);
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const getInvoices = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/invoices`;
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.post(path, payload);
+      let invoices = defaultTo(response.data.results, [])
+      dispatch(dbSetInvoices(invoices))
     } catch (e) {
       dispatch(setLoading(false));
       console.error(e);
