@@ -370,7 +370,8 @@ export const getInvoices = (payload) => {
       dispatch(setLoading(true));
       const response = await axios.post(path, payload);
       let invoices = defaultTo(response.data.results, [])
-      dispatch(dbSetInvoices(invoices))
+      let pagination = defaultTo(response.data.pagination, {})
+      dispatch(dbSetInvoices(invoices, pagination))
     } catch (e) {
       dispatch(setLoading(false));
       console.error(e);

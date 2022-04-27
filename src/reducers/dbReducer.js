@@ -9,6 +9,7 @@ const initialState = {
     notification_emails: [],
     invoice_config: [],
     invoices: [],
+    pagination: {},
 }
 
 export const dbReducer = (state = initialState, action) => {
@@ -67,7 +68,8 @@ export const dbReducer = (state = initialState, action) => {
         case TYPES.dbSetInvoices:
             return {
                 ...state,
-                invoices: action.payload
+                invoices: action.payload.invoices,
+                pagination: action.payload.pagination
             }
 
         default:

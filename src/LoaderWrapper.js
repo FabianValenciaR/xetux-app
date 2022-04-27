@@ -68,7 +68,7 @@ const LoaderWrapper = () => {
 
                         {/* FACTURAS ELECTRÓNICAS */}
                         <Route path='not-authorized-invoices' element={<NotAuthorizedInvoices />} />
-                        <Route path='client-corrections' element={<ClientCorrections />} />
+                        <Route path='client-corrections/:customerId' element={<ClientCorrections />} />
                         <Route path='round-corrections' element={<RoundCorrections />} />
                         <Route path='fordward-invoice' element={<FordwardInvoice />} />
                     </Route>

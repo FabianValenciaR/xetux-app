@@ -13,6 +13,7 @@ const NotAuthorizedInvoices = () => {
   };
   const dispatch = useDispatch();
   const invoices = useSelector((state) => state.db.invoices);
+  const pagination = useSelector((state) => state.db.pagination);
   const [tableFields, setTableFields] = useState(invoices);
   const [page, setPage] = useState(0);
   const [payload, setPayload] = useState(initial_payload);
@@ -53,22 +54,22 @@ const NotAuthorizedInvoices = () => {
   }, [invoices]);
 
   return (
-    <div>
+    <>
       <Box sx={{ display: 'flex', marginY: 3 }}>
-        <Button variant={status === INVOICE_STATUS.AUTHORIZED ? 'contained': 'outlined'} 
-        onClick={ () => handleUpdateStatus(INVOICE_STATUS.AUTHORIZED)}>Autorizadas</Button>
-        <Button sx={{ marginX: 3 }} variant={status === INVOICE_STATUS.NO_AUTHORIZED ? 'contained': 'outlined'} 
-        onClick={ () => handleUpdateStatus(INVOICE_STATUS.NO_AUTHORIZED)}>No autorizadas</Button>
+        <Button variant={status === INVOICE_STATUS.AUTHORIZED ? 'contained' : 'outlined'}
+          onClick={() => handleUpdateStatus(INVOICE_STATUS.AUTHORIZED)}>Autorizadas</Button>
+        <Button sx={{ marginX: 3 }} variant={status === INVOICE_STATUS.NO_AUTHORIZED ? 'contained' : 'outlined'}
+          onClick={() => handleUpdateStatus(INVOICE_STATUS.NO_AUTHORIZED)}>No autorizadas</Button>
       </Box>
-      <StickyHeadTable payload={payload} invoices={tableFields} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage} />
-      <p>TABLA: [T_POS_CUSTOMER]]</p>
+      <StickyHeadTable totalRecords={pagination.totalRecords} payload={payload} invoices={tableFields} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage} />
+      {/* <p>TABLA: [T_POS_CUSTOMER]]</p>
       <p>[customer_identification] Buscar el cliente por su ID y permitir corregir los sieguientes campos</p>
       <p>[customer_type_id]</p>
       <p>[customer_full_identification]</p>
       <p>Aqui recibiremos como path parameter el id del cliente desde el listado de facturas </p>
       <p>O tendremos un input que nos permita ingresar el id para filtrar </p>
-      <p>Posteriormente procederemos a actualizar la información necesaria </p>
-    </div>
+      <p>Posteriormente procederemos a actualizar la información necesaria </p> */}
+    </>
   )
 }
 

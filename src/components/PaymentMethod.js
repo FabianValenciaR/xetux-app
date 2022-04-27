@@ -38,7 +38,6 @@ const PaymentMethod = () => {
       ]
     });
     genericUpdateRequest.records = updateRecords;
-    console.log(genericUpdateRequest);
     dispatch(setPaymentMethods(genericUpdateRequest));
   }
 
