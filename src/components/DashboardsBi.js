@@ -8,7 +8,9 @@ const DashboardsBi = () => {
   const dispatch = useDispatch();
   const dashboard_config = useSelector((state) => state.db.dashboard_config);
   let initial_fields = [
-    { key: "url", current: "", updated: "", isDisabled: false }
+    { key: "url", current: "", updated: "", isDisabled: false },
+    { key: "position", current: "", updated: "", isDisabled: false },
+    { key: "frame_height", current: "", updated: "", isDisabled: false },
   ];
   const [tableFields, setTableFields] = useState(initial_fields);
 
@@ -23,6 +25,7 @@ const DashboardsBi = () => {
   }
 
   const updateItems = (updatedFields) => {
+    console.log(updatedFields);
     dispatch(updateDashboardConfig(updatedFields));
   }
 
@@ -32,14 +35,7 @@ const DashboardsBi = () => {
   }, []);
 
   useEffect(() => {
-    initial_fields.map((field) => {
-      if (field.key === "url") {
-        field.current = dashboard_config
-      }
-
-      return field;
-    });
-    setTableFields(initial_fields);
+    setTableFields([...dashboard_config]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dashboard_config]);
 

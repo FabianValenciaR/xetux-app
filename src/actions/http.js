@@ -206,7 +206,17 @@ export const getDashboardConfig = () => {
     try {
       dispatch(setLoading(true));
       const response = await axios.get(path);
-      if (!isEmpty(response.data[0])) dispatch(dbSetDashboardCondig(response.data[0]));
+      if (!isEmpty(response.data[0])) {
+        let initial_fields = [];
+        Object.keys(response.data[0]).forEach(key => {
+          initial_fields = [
+            ...initial_fields,
+            { key: key, current: response.data[0][key], updated: "", isDisabled: key === 'id' ? true : false }
+          ]
+        });
+        console.log(initial_fields);
+        dispatch(dbSetDashboardCondig(initial_fields))
+      }
     } catch (e) {
       dispatch(setLoading(false));
       console.error(e);

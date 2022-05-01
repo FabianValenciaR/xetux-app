@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import TableInputEdit from './TableInputEdit'
 import { useDispatch, useSelector } from 'react-redux';
-import { getClientInformation, updateClientInformation, fordwardInvoice } from '../actions/http';
+import { getClientInformation, updateClientInformation } from '../actions/http';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
-import { Box, Button, Container, Modal } from '@mui/material';
+import { Box, Button, Modal } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -20,7 +20,6 @@ const style = {
 const ClientCorrections = ({ clientId }) => {
   let params = useParams();
   const [customerId, setCustomerId] = useState(params.customerId)
-  const [billId, setBillId] = useState(params.billId)
   const dispatch = useDispatch();
   const client_information = useSelector((state) => state.db.client_information);
   const [tableFields, setTableFields] = useState(client_information);
@@ -36,10 +35,6 @@ const ClientCorrections = ({ clientId }) => {
       updated_fields.push({ key, value })
     });
     updateItems(updated_fields)
-  }
-
-  const handleFordwardInvoice = () => {
-    dispatch(fordwardInvoice(billId))
   }
 
   const updateItems = (updatedFields) => {
