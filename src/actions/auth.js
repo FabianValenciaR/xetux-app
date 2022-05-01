@@ -15,10 +15,9 @@ export const loginUsernameAndPassword = (username, password) => {
     }
 }
 
-export const login = (isAuth) => {
-    localStorage.setItem('isAuth', isAuth);
+export const login = (isAuthenticated) => {
     return {
         type: TYPES.login,
-        payload: { isAuth }
+        payload: isAuthenticated 
     }
 }

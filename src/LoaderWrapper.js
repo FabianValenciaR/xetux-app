@@ -48,22 +48,22 @@ const LoaderWrapper = () => {
                 <Routes>
                     <Route path='/home/*' element={<Home />}>
                         {/* CONFIGURACION GENERAL */}
-                        <Route path='time-zone' element={<TimeZone />} />
+                        <Route path='time-zone' element={<RequireAuth component={<TimeZone />} />} />
                         <Route path='receipt-parameters' element={<RequireAuth component={<ReceiptParameters />} />} />
-                        <Route path='invoice-parameters' element={<InvoiceParameters />} />
-                        <Route path='email-sales' element={<EmailSales />} />
-                        <Route path='sales-xone' element={<SalesToXONE />} />
-                        <Route path='dashboards-bi' element={<DashboardsBi />} />
+                        <Route path='invoice-parameters' element={<RequireAuth component={<InvoiceParameters />} />} />
+                        <Route path='email-sales' element={<RequireAuth component={<EmailSales />} />} />
+                        <Route path='sales-xone' element={<RequireAuth component={<SalesToXONE />} />} />
+                        <Route path='dashboards-bi' element={<RequireAuth component={<DashboardsBi />} />} />
 
                         {/* FACTURAS ELECTRÓNICAS */}
-                        <Route path='invoice-init' element={<InvoiceInitialConfig />} />
-                        <Route path='currency-config' element={<CurrencyConfig />} />
-                        <Route path='payment-method' element={<PaymentMethod />} />
-                        <Route path='document-type' element={<DocumentType />} />
-                        <Route path='delete-transactions' element={<DeleteTransactions />} />
+                        <Route path='invoice-init' element={<RequireAuth component={<InvoiceInitialConfig />} />} />
+                        <Route path='currency-config' element={<RequireAuth component={<CurrencyConfig />} />} />
+                        <Route path='payment-method' element={<RequireAuth component={<PaymentMethod />} />} />
+                        <Route path='document-type' element={<RequireAuth component={<DocumentType />} />} />
+                        <Route path='delete-transactions' element={<RequireAuth component={<DeleteTransactions />} />} />
 
                         {/* FACTURAS ELECTRÓNICAS */}
-                        <Route path='not-authorized-invoices' element={<NotAuthorizedInvoices />} />
+                        <Route path='not-authorized-invoices' element={<RequireAuth component={<NotAuthorizedInvoices />} />} />
                     </Route>
                     <Route path='/sidebar' element={<Sidebar />} />
                     <Route path='/login' element={<Login />} />

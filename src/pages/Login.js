@@ -9,24 +9,41 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginBackground from '../assets/images/login-background.png'
 import logo from '../assets/images/logo.png'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUsernameAndPassword } from '../actions/auth';
+import { removeError } from '../actions/ui';
+import { Alert } from '@mui/material';
 
 const theme = createTheme();
 
 const Login = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const msgError = useSelector((state) => state.ui.msgError);
+  const [loginError, setLoginError] = React.useState(msgError)
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
+    dispatch(removeError())
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const username = data.get('username');
     const password = data.get('password');
-
     dispatch(loginUsernameAndPassword(username, password));
-    navigate("/home/time-zone");
   };
+
+  React.useEffect(() => {
+    if (isAuthenticated === true) {
+      navigate("/home/time-zone");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated])
+
+  React.useEffect(() => {
+    setLoginError(msgError)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [msgError])
+
 
 
   return (
@@ -45,6 +62,7 @@ const Login = () => {
             }}
           >
             <img src={logo} width={200} alt='XETUX' />
+            {loginError && <Alert severity='error'>{loginError}</Alert>}
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"

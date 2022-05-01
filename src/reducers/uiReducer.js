@@ -1,4 +1,3 @@
-import { ALERT_MESSAGE, ALERT_VARIANT } from "../constants/alert";
 import { TYPES } from "../constants/types";
 
 const initialState = {

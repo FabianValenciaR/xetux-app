@@ -5,7 +5,7 @@ import { uiReducer } from '../reducers/uiReducer';
 import { dbReducer } from '../reducers/dbReducer';
 
 const reducers = combineReducers({
-    isAuth: authReducer,
+    auth: authReducer,
     ui: uiReducer,
     db: dbReducer
 });
