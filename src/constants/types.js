@@ -6,6 +6,7 @@ export const TYPES = {
     uiSetLoading: '[UI] Set Loading',
     uiSetTitle: '[UI] Set Title',
     uiRemoveError: '[UI] Remove Error',
+    uiSetAlert: '[UI] Set Alert',
 
     dbSetTimeZone: '[TIMEZONE] set fields',
     dbSetReceiptParameter: '[RECEIPT_PARAMETERS] set fields',

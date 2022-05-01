@@ -14,6 +14,8 @@ import Sidebar from '../components/Sidebar'
 import { Outlet } from 'react-router-dom';
 import logo from '../assets/images/logo.png'
 import { useSelector } from 'react-redux';
+import { Alert } from '@mui/material';
+import XetuxAlert from '../components/shared/XetuxAlert';
 
 
 const drawerWidth = 260;
@@ -129,6 +131,7 @@ const Home = () => {
             <Main open={openDrawer}>
                 <DrawerHeader />
                 <Typography paragraph>
+                    <XetuxAlert />
                     <Outlet></Outlet>
                 </Typography>
             </Main>

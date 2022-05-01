@@ -18,3 +18,19 @@ export const setTitle = (title) => ({
 export const removeError = () => ({
     type: TYPES.uiRemoveError,
 })
+
+export const setAlert = (message, severity) => ({
+    type: TYPES.uiSetAlert,
+    payload: {
+        message,
+        severity
+    }
+})
+
+export const resetAlert = () => ({
+    type: TYPES.uiSetAlert,
+    payload: {
+        message: "",
+        severity: ""
+    }
+})

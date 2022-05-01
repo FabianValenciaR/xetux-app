@@ -1,8 +1,9 @@
 
 import { defaultTo, get, isEmpty } from 'lodash';
+import { ALERT_MESSAGE, ALERT_VARIANT } from '../constants/alert';
 import axios from '../utils/axios-utils'
 import { dbSetClientInformation, dbSetDashboardCondig, dbSetGenericSelect, dbSetInvoiceConfig, dbSetInvoices, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
-import { setLoading } from './ui';
+import { setAlert, setLoading } from './ui';
 
 export const genericSelect = (payload) => {
   return async (dispatch) => {
@@ -12,6 +13,7 @@ export const genericSelect = (payload) => {
       dispatch(dbSetGenericSelect(response));
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -24,8 +26,10 @@ export const genericUpdate = (payload) => {
     const path = `http://localhost:8000/api/generic-update`;
     try {
       await axios.post(path, payload);
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -43,6 +47,7 @@ export const getTimeZone = () => {
       if (!isEmpty(response.data[0])) dispatch(dbSetTimeZone(response.data[0]));
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -57,8 +62,10 @@ export const updateTimeZone = (payload) => {
       dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getTimeZone());
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -75,6 +82,7 @@ export const getReceiptParameter = () => {
       if (!isEmpty(response.data)) dispatch(dbSetReceiptParameter({ imp: response.data[0], id: response.data[1], invoiceNum: response.data[2], currency: response.data[3] }));
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -89,8 +97,10 @@ export const updateReceiptParameter = (payload) => {
       dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getReceiptParameter());
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -119,6 +129,7 @@ export const getNotificationEmails = () => {
         dispatch(dbSetNotificationEmails([]));
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -133,8 +144,10 @@ export const deleteNotificationEmails = (email) => {
       dispatch(setLoading(true));
       await axios.delete(path);
       dispatch(getNotificationEmails());
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -149,8 +162,10 @@ export const updateNotificationEmails = (payload) => {
       dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getNotificationEmails());
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -177,6 +192,7 @@ export const getXoneConfig = () => {
       }
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -191,8 +207,10 @@ export const updateXoneConfig = (payload) => {
       dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getXoneConfig());
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -219,6 +237,7 @@ export const getDashboardConfig = () => {
       }
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -233,8 +252,10 @@ export const updateDashboardConfig = (payload) => {
       dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getDashboardConfig());
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -264,6 +285,7 @@ export const getPaymentMethods = () => {
       }
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -278,8 +300,10 @@ export const setPaymentMethods = (payload) => {
       dispatch(setLoading(true));
       const response = await axios.post(path, payload);
       dispatch(getPaymentMethods(response));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -305,6 +329,7 @@ export const getInvoiceConfig = () => {
       }
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -319,8 +344,10 @@ export const updateInvoiceConfig = (payload) => {
       dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getInvoiceConfig());
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -334,8 +361,10 @@ export const updateDocumentTypes = () => {
     try {
       dispatch(setLoading(true));
       await axios.post(path, {});
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -349,8 +378,10 @@ export const updateCurrencyConfig = () => {
     try {
       dispatch(setLoading(true));
       await axios.post(path, {});
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -364,8 +395,10 @@ export const goLive = (payload) => {
     try {
       dispatch(setLoading(true));
       await axios.post(path, payload);
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -384,6 +417,7 @@ export const getInvoices = (payload) => {
       dispatch(dbSetInvoices(invoices, pagination))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -409,6 +443,7 @@ export const getClientInformation = (customerId) => {
       }
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -424,8 +459,10 @@ export const updateClientInformation = (payload) => {
       dispatch(setLoading(true));
       await axios.post(path, payload);
       dispatch(getClientInformation(clientId));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));
@@ -439,8 +476,10 @@ export const fordwardInvoice = (payload) => {
     try {
       dispatch(setLoading(true));
       await axios.post(path, payload);
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
     } catch (e) {
       dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));

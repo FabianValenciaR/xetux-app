@@ -1,9 +1,14 @@
+import { ALERT_MESSAGE, ALERT_VARIANT } from "../constants/alert";
 import { TYPES } from "../constants/types";
 
 const initialState = {
     loading: false,
     title: "",
-    msgError: null
+    msgError: null,
+    alert_info: {
+        message: "",
+        severity: ""
+    }
 }
 
 export const uiReducer = (state = initialState, action) => {
@@ -30,6 +35,12 @@ export const uiReducer = (state = initialState, action) => {
             return {
                 ...state,
                 msgError: null
+            }
+
+        case TYPES.uiSetAlert:
+            return {
+                ...state,
+                alert_info: action.payload
             }
 
         default:

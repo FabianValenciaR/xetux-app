@@ -19,9 +19,6 @@ import PaymentMethod from './components/PaymentMethod'
 import DocumentType from './components/DocumentType'
 import DeleteTransactions from './components/DeleteTransactions'
 import NotAuthorizedInvoices from './components/NotAuthorizedInvoices'
-import ClientCorrections from './components/ClientCorrections'
-import RoundCorrections from './components/RoundCorrections'
-import { FordwardInvoice } from './components/FordwardInvoice'
 import { useSelector } from 'react-redux'
 
 
