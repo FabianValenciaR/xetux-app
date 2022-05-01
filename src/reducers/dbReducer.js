@@ -10,6 +10,7 @@ const initialState = {
     invoice_config: [],
     invoices: [],
     pagination: {},
+    client_information: [],
 }
 
 export const dbReducer = (state = initialState, action) => {
@@ -70,6 +71,12 @@ export const dbReducer = (state = initialState, action) => {
                 ...state,
                 invoices: action.payload.invoices,
                 pagination: action.payload.pagination
+            }
+
+        case TYPES.dbSetClientInformation:
+            return {
+                ...state,
+                client_information: action.payload
             }
 
         default:

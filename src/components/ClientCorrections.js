@@ -1,8 +1,80 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import TableInputEdit from './TableInputEdit'
+import { useDispatch, useSelector } from 'react-redux';
+import { getClientInformation, updateClientInformation, fordwardInvoice } from '../actions/http';
+import { useParams } from 'react-router-dom';
+import { isEmpty } from 'lodash';
+import { Box, Button, Container, Modal } from '@mui/material';
 
-const ClientCorrections = () => {
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+const ClientCorrections = ({ clientId }) => {
+  let params = useParams();
+  const [customerId, setCustomerId] = useState(params.customerId)
+  const [billId, setBillId] = useState(params.billId)
+  const dispatch = useDispatch();
+  const client_information = useSelector((state) => state.db.client_information);
+  const [tableFields, setTableFields] = useState(client_information);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleUpdate = (values) => {
+    let updated_fields = [];
+    Object.keys(values).forEach((item, i) => {
+      let key = item
+      let value = Object.values(values)[i];
+      updated_fields.push({ key, value })
+    });
+    updateItems(updated_fields)
+  }
+
+  const handleFordwardInvoice = () => {
+    dispatch(fordwardInvoice(billId))
+  }
+
+  const updateItems = (updatedFields) => {
+    dispatch(updateClientInformation(updatedFields));
+  }
+
+  useEffect(() => {
+    if (!isEmpty(clientId) && open) {
+      setCustomerId(clientId);
+      // setBillId(params.billId);
+      dispatch(getClientInformation(clientId))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clientId, open]);
+
+  useEffect(() => {
+    setTableFields(client_information);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [client_information]);
+
   return (
-    <div>ClientCorrections</div>
+    <>
+      <Button onClick={handleOpen}>{clientId}</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <TableInputEdit fields={tableFields} tableName={'CLIENTE'} onUpdate={handleUpdate} />
+        </Box>
+      </Modal>
+
+    </>
   )
 }
 

@@ -1,14 +1,24 @@
-import React from 'react'
+import { Button } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { fordwardInvoice } from '../actions/http';
 
-export const FordwardInvoice = () => {
+export const FordwardInvoice = ({ bill_id }) => {
+  const dispatch = useDispatch();
+  const [billId, setBillId] = useState(bill_id);
+
+  useEffect(() => {
+    setBillId(bill_id);
+  }, [bill_id])
+
+  const handleForwardInvoice = () => {
+    console.log(billId);
+    dispatch(fordwardInvoice({ bill_id: billId }))
+  }
+
   return (
-    <div>
-      <p>TABLA: [T_POS_EXTERNAL_BILLING_INFO]</p>
-      <p>Con el campo [bill_id]  consultar el registro</p>
-      <p>[status] sera 0</p>
-      <p>[created_at] getdate from sql siempre que no hayan pasado 30 dias. VALIDAR</p>
-      <p>Su factura no puede ser actualizada fuera de rango</p>
-      <p>[updated_at], [response], [request] a NULL</p>
-    </div>
+    <>
+      <Button onClick={handleForwardInvoice}>Reenviar {billId}</Button>
+    </>
   )
 }

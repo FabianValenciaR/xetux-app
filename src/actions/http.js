@@ -1,7 +1,7 @@
 
 import { defaultTo, get, isEmpty } from 'lodash';
 import axios from '../utils/axios-utils'
-import { dbSetDashboardCondig, dbSetGenericSelect, dbSetInvoiceConfig, dbSetInvoices, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
+import { dbSetClientInformation, dbSetDashboardCondig, dbSetGenericSelect, dbSetInvoiceConfig, dbSetInvoices, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
 import { setLoading } from './ui';
 
 export const genericSelect = (payload) => {
@@ -372,6 +372,63 @@ export const getInvoices = (payload) => {
       let invoices = defaultTo(response.data.results, [])
       let pagination = defaultTo(response.data.pagination, {})
       dispatch(dbSetInvoices(invoices, pagination))
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const getClientInformation = (customerId) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/customer/${customerId}`;
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(path);
+      if (!isEmpty(response.data[0])) {
+        let initial_fields = [];
+        Object.keys(response.data[0]).forEach(key => {
+          initial_fields = [
+            ...initial_fields,
+            { key: key, current: response.data[0][key], updated: "", isDisabled: key === 'customer_id' ? true : false }
+          ]
+        });
+        dispatch(dbSetClientInformation(initial_fields))
+      }
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const updateClientInformation = (payload) => {
+  let clientId = payload.filter((field) => field.key === 'customer_identification')[0].value;
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/customer`;
+    try {
+      dispatch(setLoading(true));
+      await axios.post(path, payload);
+      dispatch(getClientInformation(clientId));
+    } catch (e) {
+      dispatch(setLoading(false));
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const fordwardInvoice = (payload) => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/forward-invoice`;
+    try {
+      dispatch(setLoading(true));
+      await axios.post(path, payload);
     } catch (e) {
       dispatch(setLoading(false));
       console.error(e);

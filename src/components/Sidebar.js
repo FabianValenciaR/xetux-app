@@ -26,10 +26,10 @@ const invoicesSubmenu = [
 ];
 
 const forwardInvoicesSubmenu = [
-    { label: 'Listado de Facturas NO AUTORIZADAS', url: "/home/not-authorized-invoices" },
-    { label: 'Corrección de Cliente', url: "/home/client-corrections" },
+    { label: 'Listado de Facturas', url: "/home/not-authorized-invoices" },
+    // { label: 'Corrección de Cliente', url: "/home/client-corrections" },
     // { label: 'Corrección de Redondeo', url: "/home/round-corrections" },
-    { label: 'Reenvío de Factura', url: "/home/fordward-invoice" },
+    // { label: 'Reenvío de Factura', url: "/home/fordward-invoice" },
 ];
 
 const Sidebar = () => {

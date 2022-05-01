@@ -69,3 +69,10 @@ export const dbSetInvoices = (invoices, pagination) => {
         payload: { invoices, pagination }
     }
 };
+
+export const dbSetClientInformation = (data) => {
+    return {
+        type: TYPES.dbSetClientInformation,
+        payload: data
+    }
+};

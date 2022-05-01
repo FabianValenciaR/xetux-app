@@ -9,8 +9,10 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { INVOICE_STATUS } from '../../constants/invoice';
 import { defaultTo, get, isEmpty } from 'lodash';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import ClientCorrections from '../ClientCorrections';
+import { Button } from '@mui/material';
+import { FordwardInvoice } from '../FordwardInvoice';
 
 export default function StickyHeadTable({ totalRecords, payload, invoices, handleChangePage, handleChangeRowsPerPage }) {
   const [tableConfig, setTableConfig] = useState({
@@ -54,15 +56,17 @@ export default function StickyHeadTable({ totalRecords, payload, invoices, handl
   }
 
   const drawValueCell = (column, value) => {
-
-
+    console.log();
     switch (column) {
       case 'response':
         return getResponseFromJSON(value)
 
       case 'request':
         const id = getCustomerIdFromXml(value);
-        return (<Button onClick={() => handleOpenCustomer(id)}>{id}</Button>)
+        return (<ClientCorrections clientId={id} />)
+
+      case 'bill_id':
+        return (<FordwardInvoice bill_id={value} />)
 
       default:
         return value;

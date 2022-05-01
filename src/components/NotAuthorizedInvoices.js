@@ -58,8 +58,10 @@ const NotAuthorizedInvoices = () => {
       <Box sx={{ display: 'flex', marginY: 3 }}>
         <Button variant={status === INVOICE_STATUS.AUTHORIZED ? 'contained' : 'outlined'}
           onClick={() => handleUpdateStatus(INVOICE_STATUS.AUTHORIZED)}>Autorizadas</Button>
-        <Button sx={{ marginX: 3 }} variant={status === INVOICE_STATUS.NO_AUTHORIZED ? 'contained' : 'outlined'}
+        <Button sx={{ marginLeft: 3 }} variant={status === INVOICE_STATUS.NO_AUTHORIZED ? 'contained' : 'outlined'}
           onClick={() => handleUpdateStatus(INVOICE_STATUS.NO_AUTHORIZED)}>No autorizadas</Button>
+        <Button sx={{ marginLeft: 3 }} variant={status === INVOICE_STATUS.FORWARDED ? 'contained' : 'outlined'}
+          onClick={() => handleUpdateStatus(INVOICE_STATUS.FORWARDED)}>Reenviadas</Button>
       </Box>
       <StickyHeadTable totalRecords={pagination.totalRecords} payload={payload} invoices={tableFields} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage} />
       {/* <p>TABLA: [T_POS_CUSTOMER]]</p>

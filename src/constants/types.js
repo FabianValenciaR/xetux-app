@@ -23,4 +23,6 @@ export const TYPES = {
     dbSetInvoiceConfig: '[INVOICE_CONFIG] set fields',
 
     dbSetInvoices: '[INVOICES] set records',
+
+    dbSetClientInformation: '[CLIENT_INFORMATION] set client information',
 }

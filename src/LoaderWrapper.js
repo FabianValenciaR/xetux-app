@@ -18,7 +18,6 @@ import CurrencyConfig from './components/CurrencyConfig'
 import PaymentMethod from './components/PaymentMethod'
 import DocumentType from './components/DocumentType'
 import DeleteTransactions from './components/DeleteTransactions'
-import SecuentialChange from './components/SecuentialChange'
 import NotAuthorizedInvoices from './components/NotAuthorizedInvoices'
 import ClientCorrections from './components/ClientCorrections'
 import RoundCorrections from './components/RoundCorrections'
@@ -68,9 +67,6 @@ const LoaderWrapper = () => {
 
                         {/* FACTURAS ELECTRÓNICAS */}
                         <Route path='not-authorized-invoices' element={<NotAuthorizedInvoices />} />
-                        <Route path='client-corrections/:customerId' element={<ClientCorrections />} />
-                        <Route path='round-corrections' element={<RoundCorrections />} />
-                        <Route path='fordward-invoice' element={<FordwardInvoice />} />
                     </Route>
                     <Route path='/sidebar' element={<Sidebar />} />
                     <Route path='/login' element={<Login />} />
