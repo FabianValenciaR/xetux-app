@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getClientInformation, updateClientInformation } from '../actions/http';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
-import { Box, Button, Modal } from '@mui/material';
+import { Box, Button, Modal, Typography } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -57,7 +57,7 @@ const ClientCorrections = ({ clientId }) => {
 
   return (
     <>
-      <Button onClick={handleOpen}>{clientId}</Button>
+      {clientId === '9999999999999' ? <Typography>Consumidor Final</Typography> : <Button onClick={handleOpen}>{clientId}</Button>}
       <Modal
         open={open}
         onClose={handleClose}

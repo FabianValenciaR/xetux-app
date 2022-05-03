@@ -9,9 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { INVOICE_STATUS } from '../../constants/invoice';
 import { defaultTo, get, isEmpty } from 'lodash';
-import { useNavigate } from 'react-router-dom';
 import ClientCorrections from '../ClientCorrections';
-import { Button } from '@mui/material';
 import { FordwardInvoice } from '../FordwardInvoice';
 
 export default function StickyHeadTable({ totalRecords, payload, invoices, handleChangePage, handleChangeRowsPerPage }) {
@@ -20,7 +18,6 @@ export default function StickyHeadTable({ totalRecords, payload, invoices, handl
     page: 0,
     status: INVOICE_STATUS.AUTHORIZED
   })
-  const navigate = useNavigate();
   const [records, setRecords] = useState([]);
   const [columns, setColumns] = useState([]);
   const [rows, setRows] = useState([]);
@@ -29,10 +26,6 @@ export default function StickyHeadTable({ totalRecords, payload, invoices, handl
     let new_columns = Object.keys(defaultTo(records[0], {}));
     setColumns(new_columns);
     setRows(defaultTo(records, []));
-  }
-
-  const handleOpenCustomer = (customerId) => {
-    navigate(`/home/client-corrections/${customerId}`);
   }
 
   const getResponseFromJSON = (value) => {
@@ -66,7 +59,7 @@ export default function StickyHeadTable({ totalRecords, payload, invoices, handl
         return (<ClientCorrections clientId={id} />)
 
       case 'bill_id':
-        return (<FordwardInvoice bill_id={value} />)
+        return (tableConfig.status === INVOICE_STATUS.NO_AUTHORIZED ? <FordwardInvoice bill_id={value} pagination={tableConfig}/> : <div>{value}</div>)
 
       default:
         return value;
@@ -89,7 +82,7 @@ export default function StickyHeadTable({ totalRecords, payload, invoices, handl
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 600 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

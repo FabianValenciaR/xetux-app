@@ -30,6 +30,7 @@ const NotAuthorizedInvoices = () => {
   };
 
   const handleUpdateStatus = (status) => {
+    setPage(0);
     setStatus(status);
   }
 

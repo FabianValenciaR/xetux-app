@@ -470,13 +470,14 @@ export const updateClientInformation = (payload) => {
   };
 };
 
-export const fordwardInvoice = (payload) => {
+export const fordwardInvoice = (payload, pagination) => {
   return async (dispatch) => {
     const path = `http://localhost:8000/api/forward-invoice`;
     try {
       dispatch(setLoading(true));
       await axios.post(path, payload);
-      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS))
+      dispatch(getInvoices(pagination));
+      dispatch(setAlert(ALERT_MESSAGE.UPDATE_SUCCESS, ALERT_VARIANT.SUCCESS));
     } catch (e) {
       dispatch(setLoading(false));
       dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
