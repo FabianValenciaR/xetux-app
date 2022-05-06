@@ -59,7 +59,7 @@ const ReceiptParameters = () => {
   }, [field8, field12, field20, field21]);
 
   return (
-    <TableInputEdit fields={tableFields} tableName={TABLES.T_POS_RECEIPT_FISCAL_PRINTER} onUpdate={handleUpdate} />
+    <TableInputEdit fields={tableFields} tableName={`Configurar parámetros del recibo`} onUpdate={handleUpdate} />
   )
 }
 

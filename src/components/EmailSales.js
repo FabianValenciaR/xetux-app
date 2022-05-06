@@ -27,7 +27,7 @@ const EmailSales = () => {
     <Container>
 
       <Typography variant="h5" align='center' component="div" gutterBottom>
-        {TABLES.DESTINATARIO}
+        Configurar notificaciones a email
       </Typography>
 
       <Item elevation={3} >

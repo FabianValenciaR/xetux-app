@@ -40,7 +40,7 @@ const DashboardsBi = () => {
   }, [dashboard_config]);
 
   return (
-    <TableInputEdit fields={tableFields} tableName={TABLES.T_PA_EXTERNAL_DASHBOARD} onUpdate={handleUpdate} />
+    <TableInputEdit fields={tableFields} tableName={`Configurar Tableros de Inteligencia de Negocios`} onUpdate={handleUpdate} />
   )
 }
 

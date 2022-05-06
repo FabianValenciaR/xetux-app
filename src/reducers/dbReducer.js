@@ -11,6 +11,7 @@ const initialState = {
     invoices: [],
     pagination: {},
     client_information: [],
+    customer_types: [],
 }
 
 export const dbReducer = (state = initialState, action) => {
@@ -77,6 +78,12 @@ export const dbReducer = (state = initialState, action) => {
             return {
                 ...state,
                 client_information: action.payload
+            }
+
+        case TYPES.dbSetCustomerTypes:
+            return {
+                ...state,
+                customer_types: action.payload
             }
 
         default:

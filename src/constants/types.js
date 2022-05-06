@@ -26,4 +26,6 @@ export const TYPES = {
     dbSetInvoices: '[INVOICES] set records',
 
     dbSetClientInformation: '[CLIENT_INFORMATION] set client information',
+
+    dbSetCustomerTypes: '[CUSTOMER_TYPES] set customer types',
 }

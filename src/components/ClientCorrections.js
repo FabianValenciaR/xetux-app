@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import TableInputEdit from './TableInputEdit'
 import { useDispatch, useSelector } from 'react-redux';
-import { getClientInformation, updateClientInformation } from '../actions/http';
+import { getClientInformation, getCustomerTypes, updateClientInformation } from '../actions/http';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import { Box, Button, Modal, Typography } from '@mui/material';
+import ClientTable from './shared/ClientTable';
 
 const style = {
   position: 'absolute',
@@ -46,6 +46,7 @@ const ClientCorrections = ({ clientId }) => {
       setCustomerId(clientId);
       // setBillId(params.billId);
       dispatch(getClientInformation(clientId))
+      dispatch(getCustomerTypes())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientId, open]);
@@ -65,7 +66,7 @@ const ClientCorrections = ({ clientId }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <TableInputEdit fields={tableFields} tableName={'CLIENTE'} onUpdate={handleUpdate} />
+          <ClientTable fields={tableFields} tableName={'CLIENTE'} onUpdate={handleUpdate} />
         </Box>
       </Modal>
 

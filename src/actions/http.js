@@ -2,7 +2,7 @@
 import { defaultTo, get, isEmpty } from 'lodash';
 import { ALERT_MESSAGE, ALERT_VARIANT } from '../constants/alert';
 import axios from '../utils/axios-utils'
-import { dbSetClientInformation, dbSetDashboardCondig, dbSetGenericSelect, dbSetInvoiceConfig, dbSetInvoices, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
+import { dbSetClientInformation, dbSetCustomerTypes, dbSetDashboardCondig, dbSetGenericSelect, dbSetInvoiceConfig, dbSetInvoices, dbSetNotificationEmails, dbSetPaymentMethods, dbSetReceiptParameter, dbSetTimeZone, dbSetXoneConfig } from './database';
 import { setAlert, setLoading } from './ui';
 
 export const genericSelect = (payload) => {
@@ -481,6 +481,23 @@ export const fordwardInvoice = (payload, pagination) => {
     } catch (e) {
       dispatch(setLoading(false));
       dispatch(setAlert(ALERT_MESSAGE.UPDATE_ERROR, ALERT_VARIANT.ERROR))
+      console.error(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const getCustomerTypes = () => {
+  return async (dispatch) => {
+    const path = `http://localhost:8000/api/customer-types`;
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(path);
+      dispatch(dbSetCustomerTypes(defaultTo(response.data, [])))
+    } catch (e) {
+      dispatch(setLoading(false));
+      dispatch(setAlert(ALERT_MESSAGE.GET_ERROR, ALERT_VARIANT.ERROR))
       console.error(e);
     } finally {
       dispatch(setLoading(false));

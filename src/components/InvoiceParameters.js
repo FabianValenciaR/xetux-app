@@ -79,7 +79,7 @@ const InvoiceParameters = () => {
 
   return (
     <>
-      <TextAreaItems fields={tableFields} tableName={TABLES.T_SYS_PARAMETERS} onUpdate={handleUpdate} />
+      <TextAreaItems fields={tableFields} tableName={`Configurar parámetros de la factura`} onUpdate={handleUpdate} />
       {/* <TableInputEdit fields={tableFields} tableName={TABLES.T_SYS_PARAMETERS} onUpdate={handleUpdate} /> */}
     </>
   )

@@ -34,7 +34,7 @@ const InvoiceInitialConfig = () => {
   }, [invoice_config]);
 
   return (
-    <TableInputEdit fields={tableFields} tableName={TABLES.T_POS_WEB_SALES_CONFIG} onUpdate={handleUpdate} />
+    <TableInputEdit fields={tableFields} tableName={"Configuración de Facturación Electrónica"} onUpdate={handleUpdate} />
   )
 }
 

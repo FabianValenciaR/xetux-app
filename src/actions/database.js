@@ -76,3 +76,10 @@ export const dbSetClientInformation = (data) => {
         payload: data
     }
 };
+
+export const dbSetCustomerTypes = (data) => {
+    return {
+        type: TYPES.dbSetCustomerTypes,
+        payload: data
+    }
+};

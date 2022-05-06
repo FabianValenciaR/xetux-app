@@ -3,6 +3,7 @@ import TableInputEdit from './TableInputEdit'
 import { TABLES } from '../constants/tables'
 import { useDispatch, useSelector } from 'react-redux';
 import { getPaymentMethods, setPaymentMethods } from '../actions/http';
+import { Container, Typography } from '@mui/material';
 
 const PaymentMethod = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,23 @@ const PaymentMethod = () => {
   }, [payment_methods]);
 
   return (
-      <TableInputEdit fields={tableFields} tableName={TABLES.T_POS_PAYFORM} onUpdate={handleUpdate} />
+    <>
+      <Container>
+        <Typography variant="h5" align='center' component="div" gutterBottom>
+          Configurar Tipos de Pago
+        </Typography>
+        <Typography sx={{ marginTop: 5 }} variant="h7" align='left' component="div" gutterBottom>
+          01 = Efectivo
+        </Typography>
+        <Typography variant="h7" align='left' component="div" gutterBottom>
+          19 = Sin uso del sistema financiero
+        </Typography>
+        <Typography variant="h7" align='left' component="div" gutterBottom>
+          20 = Con uso del sistema financiero
+        </Typography>
+      </Container>
+      <TableInputEdit fields={tableFields} tableName={''} onUpdate={handleUpdate} />
+    </>
   )
 }
 

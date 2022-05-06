@@ -15,7 +15,8 @@ const DocumentType = () => {
       <Typography variant="h5" align='center' component="div" gutterBottom>
         Resetear Consumidor Final
       </Typography>
-      <Typography variant="body1" align='left' component="div" gutterBottom>
+      <Typography sx={{ marginTop: 5}} variant="h7" align='left' component="div" gutterBottom>
+        Reinicia los parámetros por defecto del consumidor final.
       </Typography>
       <Button onClick={handleReset} sx={{ marginTop: 2 }} variant='contained'>Resetear</Button>
     </Container>

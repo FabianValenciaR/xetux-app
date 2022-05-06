@@ -34,7 +34,7 @@ const SalesToXONE = () => {
   }, [xone_config]);
 
   return (
-    <TableInputEdit fields={tableFields} tableName={TABLES.T_XSC_CONFIG} onUpdate={handleUpdate} />
+    <TableInputEdit fields={tableFields} tableName={`Configurar parámetros XONE`} onUpdate={handleUpdate} />
   )
 }
 
